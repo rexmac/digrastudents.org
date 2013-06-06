@@ -1,0 +1,30 @@
+<div id="sidebar" class="span4"><div class="sidebar-inner">
+
+  <div class="sidebar-module social-media-icons">
+    <h3><i class="icon-road"></i><span>Follow Us</span></h3>
+    <a class="ir twitter" href="http://twitter.com/{{ site.author.twitter }}" title="Follow us on Twitter">Follow us on Twitter</a>
+    <a class="ir rss" href="{{ url }}/feed" title="nom nom?">RSS Feed</a>
+  </div>
+
+  <div class="sidebar-module latest-posts">
+    <h3><i class="icon-time"></i><span>Latest Posts</span></h3>{% for post in site.posts limit: 5 %}
+    <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
+    <h6>{{ post.date | format_date }}</h6>
+  {% endfor %}</div>
+
+  <div class="sidebar-module tag-cloud">
+    <h3><i class="icon-tags"></i><span>Tag Cloud</span></h3>
+    {% tag_cloud %}
+  </div>
+
+  <div class="sidebar-module categories">
+    <h3><i class="icon-list"></i><span>Categories</span></h3>
+    {% category_list %}
+  </div>
+
+  <div class="sidebar-module archives">
+    <h3><i class="icon-briefcase"></i><span>Archives</span></h3>
+    {% monthly_archives %}
+  </div>
+
+</div></div>

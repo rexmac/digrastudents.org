@@ -1,0 +1,30 @@
+/* =============================================================================
+   Sidebar
+   ========================================================================== */
+.sidebar-inner {
+  padding-right: $baseLineHeight;
+}
+.sidebar-module {
+  margin-bottom: $baseLineHeight / 2;
+}
+.sidebar-module h3 {
+  position: relative;
+  color: $navbarLinkColorHover;
+  padding-left: $baseLineHeight;
+  padding-right: $baseLineHeight;
+  margin-bottom: $baseLineHeight / 2;
+  //@include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
+  @include gradient-vertical($navbarBackgroundHighlight, #ddd);
+  @include border-radius(4px);
+  @include box-shadow("0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1)");
+  .lightsoff & {
+    color: #f5f5f5; //@navbarInverseLinkColorHover;
+    @include gradient-vertical($navbarInverseBackgroundHighlight, $navbarInverseBackground);
+  }
+  span {
+    margin-left: $baseLineHeight;
+  }
+}
+
+.sidebar-module.latest-posts h4 { margin-bottom: 0; }
+.sidebar-module.latest-posts h6 { margin-top: 0; }

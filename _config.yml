@@ -1,0 +1,58 @@
+#-----------------------------#
+#     Major Site Settings     #
+#-----------------------------#
+url: http://digrastudents.org
+title: digrastudents.org
+description: "Home page of the Digital Gaming Research Assocation (DiGRA) Student Representatives"
+author:
+  name: DiGRA Student Representatives
+  twitter: digrastudents
+analytics:
+  provider: google
+  google:
+    tracking_id: 'UA-32704915-1'
+
+#---------------------------------------#
+#             Blog Settings             #
+#---------------------------------------#
+paginate: 10                            # Posts per page on the blog index
+pagination_dir: blog                    # Directory base for pagination URLs, e.g., /blog/page/2/
+permalink: /blog/:title                 # URL structure for blog posts
+recent_posts: 5                         # Posts in the sidebar Recent Posts section
+excerpt_link: "Continue reading &rarr;" # "Continue reading" link text at the bottom of excerpted articles
+category_dir: blog/categories           # Directory base for category URLs, e.g., /blog/categories/
+tag_dir: blog/tags                      # Directory base for tag URLs, e.g., /blog/tags/
+
+#-----------------------------#
+#       Jekyll Settings       #
+#-----------------------------#
+source: src
+destination: public
+pygments: true
+markdown: kramdown
+
+#-----------------------------#
+#       Build Settings        #
+#-----------------------------#
+include: [".htaccess"]
+exclude: [
+  "resolutionizr.html",
+  "sass"
+]
+js: [
+  "site.min.js": [
+    "libs/sprintf.min.js",
+    "libs/bootstrap-transition.js",
+    "libs/bootstrap-collapse.js",
+    "libs/bootstrap-tooltip.js",
+    "libs/imageFlip.js",
+    "libs/jquery.cookie.js",
+    "libs/jquery.fcbkcomplete.js",
+    "libs/jquery.notifier.js",
+    "libs/jquery.showLoading.js",
+    "libs/jquery.treemap.js",
+    "libs/jquery.validate.js",
+    "libs/fayer.js",
+    "_digrastudents.js"
+  ]
+]

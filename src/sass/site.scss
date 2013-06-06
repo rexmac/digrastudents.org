@@ -1,0 +1,121 @@
+@import "bootstrap/bootstrap";
+@import "bootstrap/responsive";
+@import "compass";
+@import "font-awesome";
+
+$link-color: $linkColor;
+$noise-bg: image-url('noise.png') 0 0 !default;
+$icons-sprite: image-url($iconSpritePath) !default;
+$icons-white-sprite: image-url($iconWhiteSpritePath) !default;
+
+@mixin selection($bg, $color: inherit, $text-shadow: none){
+  * {
+    &::-moz-selection { background: $bg; color: $color; text-shadow: $text-shadow; }
+    &::-webkit-selection { background: $bg; color: $color; text-shadow: $text-shadow; }
+    &::selection { background: $bg; color: $color; text-shadow: $text-shadow; }
+  }
+}
+
+$lightsoffLinkColor: #08f;
+$lightsoffLinkColorHover: #5bf;
+
+@import "helpers";
+
+body {
+  padding-top: $navbarHeight;
+  @media (max-width: 979px) {
+    padding-top: 0;
+  }
+  .lightsoff & {
+    background-color: #1d1d1d;
+    color: #bbb;
+  }
+}
+
+a {
+  .lightsoff & {
+    @include link-colors($lightsoffLinkColor, $lightsoffLinkColorHover, $lightsoffLinkColorHover, $lightsoffLinkColor, $lightsoffLinkColorHover);
+  }
+}
+
+@import "footer";
+
+hr {
+  border-top-color: #ddd;
+  border-bottom-color: $grayLighter;
+  .lightsoff & {
+    border-top-color: $grayDarker;
+    border-bottom-color: $grayDark;
+  }
+}
+
+@import "posts";
+@import "accordions";
+@import "alerts";
+@import "buttons";
+@import "dictionary";
+@import "forms";
+@import "nav";
+
+/* =============================================================================
+   Thumbnails
+   ========================================================================== */
+img.thumbnail {
+  .lightsoff & { border-color: $gray; }
+}
+
+@import "tooltips";
+@import "post-dates";
+@import "sidebar";
+@import "tagcloud";
+@import "socialmedia-icons";
+
+
+/* =============================================================================
+   non-semantic helper classes
+   ========================================================================== */
+
+// For image replacement
+.ir {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  // IE 6/7 fallback
+  *text-indent: -9999px;
+}
+.ir:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 100%;
+}
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}

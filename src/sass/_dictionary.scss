@@ -1,0 +1,15 @@
+/* =============================================================================
+   Dictionary Entries
+   ========================================================================== */
+dl.dictionary dt {
+  font-weight: bold;
+  span.word {
+    font-size: 30px;
+  }
+  span.part-of-speech {
+    color: $grayLight;
+    font-style: oblique;
+  }
+  span.phonetic {
+  }
+}

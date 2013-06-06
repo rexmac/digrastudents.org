@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+   <meta charset="utf-8">
+   <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+    *   {
+        vertical-align:top;
+    }
+    body {
+        padding:20px;
+        font-family:sans-serif;
+        overflow-y:scroll;
+    }
+    #frames {
+        overflow-x: scroll;
+        width: 100%;
+        margin-bottom: 10px;
+        padding-bottom: 20px;
+    }
+    .frame {
+        margin-right:20px;
+        float:left;
+    }
+    .frame input {
+        width: 100%;
+    }
+    .frame:last-child {
+        margin-right:0;
+    }
+    iframe {
+        border:solid 1px #000;
+    }
+    </style>
+    <meta charset="utf-8">
+    <title>Resolutionizer</title>
+<body>
+
+  <div id="add-size-popup" class="modal hide">
+    <div class="modal-header">
+      <h3>Add new size</h3>
+    </div>
+    <div class="modal-body">
+      <label>Size (WIDTHxHEIGHT):</label><input type="text" id="new-size"/><br/>
+      <label>Label: </label><input type="text" id="new-label"/><br/>
+    </div>
+    <div class="modal-footer">
+      <a id="close-button" href="#" class="btn">Close</a>
+      <button class="btn btn-primary" id="save-size-button" />Save Size</button>
+    </div>
+  </div>
+
+    <form class="form-inline">
+    <input type="url" id="url" value="http://twitter.github.com/bootstrap/" style="width:400px;">
+
+    <select id="sizes">
+    </select>
+
+    <button class="btn" id="add">Add iFrame</button>   &nbsp; &middot; &nbsp;
+    <button class="btn" id="clear">Clear iFrames</button> &nbsp; &middot; &nbsp;
+    <button class="btn" id="reload">Reload All Frames</button>
+    </form>
+
+    <hr>
+
+    <div id="frames">
+    </div>
+
+
+
+    <script type="text/javascript">
+   /* Default sizes */
+    var defaultSizes = [
+     {width:240,height:320,label:"small phone"},
+     {width:320,height:426,label:"Android small"},
+     {width:320,height:470,label:"Android normal"},
+     {width:480,height:640,label:"Android large"},
+     {width:720,height:960,label:"Android xlarge"},
+     {width:600,height:1024,label:"Android tablet"},
+     {width:320,height:480,label:"iPhone"},
+     {width:768,height:1024,label:"iPad Portrait"},
+     {width:1024,height:768,label:"iPad Landscape"}
+    ];
+
+    var $ = function(id){
+      return document.getElementById(id)
+    };
+
+    var addSizeButton  = $('add-size-button');
+    var addSizePopup   = $('add-size-popup');
+    var saveSizeButton = $('save-size-button');
+    var closeButton    = $('close-button');
+    var newSize        = $('new-size');
+    var newLabel       = $('new-label');
+    var sizesDropdown  = $('sizes');
+    var urlInput       = $('url');
+    var addButton      = $('add');
+    var clearButton    = $('clear');
+    var reloadButton   = $('reload');
+    var iframesArea    = $('frames');
+    var LS_URL         = 'iframeUrl';
+    var LS_IFRAMES     = 'iframesHTML';
+    var LS_SIZES       = 'screenSizes';
+
+
+
+    /* filling the sizes dropdown box */
+    var initSizes = function(){
+        clearSizes();
+        defaultSizes.forEach(function(size){
+          appendSize(size)
+        })
+        var userSizes = JSON.parse(window.localStorage.getItem(LS_SIZES))
+        if(userSizes){
+          userSizes.forEach(function(size){
+            appendSize(size)
+          })
+        }
+        var option = document.createElement('option');
+        option.value = 'newsize';
+        option.text  = 'Add new size';
+        sizesDropdown.appendChild(option);
+    }
+
+    /* Clear all sizes from the dropdown */
+    var clearSizes = function(){
+      while (sizesDropdown.hasChildNodes()) {
+        sizesDropdown.removeChild(sizesDropdown.firstChild);
+      }
+    }
+
+    /* Add a size to the dropdown */
+    var appendSize  = function(size){
+      var option = document.createElement("option")
+        option.value=size.width+"x"+size.height
+        option.text=size.width+"x"+size.height+" ("+size.label+")"
+      sizesDropdown.appendChild(option)
+    }
+
+    /* Click listeners for the buttons */
+    saveSizeButton.addEventListener('click',function(event){
+        event.preventDefault()
+        saveSizes()
+        return false;
+    });
+    closeButton.addEventListener('click',function(event){
+      addSizePopup.style.display="none";
+    });
+
+    /* Appends the new sizes to the userSizes object and saves it to local storage */
+    var saveSizes = function(){
+      var size={width:0,height:0,label:"new size"}
+        size.width = newSize.value.split('x')[0];
+          size.height = newSize.value.split('x')[1];
+          size.label = newLabel.value
+      var userSizes=  JSON.parse(window.localStorage.getItem(LS_SIZES))
+        if(!userSizes){
+          userSizes = []
+        }
+        userSizes.push(size)
+        window.localStorage.setItem(LS_SIZES,JSON.stringify(userSizes))
+        newLabel.value =""
+        newSize.value =""
+        initSizes()
+      addSizePopup.style.display="none";
+    }
+
+    sizesDropdown.addEventListener('change', function() {
+      var selectedVal = sizesDropdown.options[sizesDropdown.selectedIndex].value;
+      if (selectedVal == 'newsize') {
+        addSizePopup.style.display="block";
+      }
+    });
+
+    addButton.addEventListener('click', function() {
+        var size = sizesDropdown.options[sizesDropdown.selectedIndex].value;
+        var width = size.split('x')[0];
+        var height = size.split('x')[1];
+        var url = document.getElementById('url').value;
+
+        var div = document.createElement('div');
+        div.className = 'frame';
+        div.style.width = (parseInt(width, 10) +10) + 'px';
+        div.innerHTML = '<h3>' + sizesDropdown.options[sizesDropdown.selectedIndex].text + '</h3>';
+
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('src', url);
+        iframe.setAttribute('width', width);
+        iframe.setAttribute('height', height);
+        iframe.setAttribute('sandbox', 'allow-same-origin allow-forms allow-scripts');
+        iframe.setAttribute('seamless', 'seamless');
+        div.appendChild(iframe);
+
+        iframesArea.appendChild(div);
+        window.localStorage.setItem(LS_IFRAMES, iframesArea.innerHTML);
+        window.localStorage.setItem(LS_URL, url);
+    });
+
+    clearButton.addEventListener('click', function() {
+        window.localStorage.removeItem(LS_IFRAMES);
+        iframesArea.innerHTML = '';
+    });
+
+    reloadButton.addEventListener('click', function() {
+        var iframes = document.getElementsByTagName('iframe');
+        for (var i = 0; i < iframes.length; i++) {
+            var newUrl = iframes[i].src;
+            if (newUrl.indexOf('?') > -1) {
+                newUrl += '&';
+            } else {
+                newUrl += '?';
+            }
+            newUrl += 'rand=' + (new Date()).getTime();
+            iframes[i].src = newUrl;
+        }
+    });
+
+    initSizes();
+
+    var iframesHTML = window.localStorage.getItem(LS_IFRAMES);
+    if (iframesHTML) {
+        iframesArea.innerHTML = iframesHTML;
+    }
+    var iframeUrl = window.localStorage.getItem(LS_URL);
+    if (iframeUrl) {
+        urlInput.value = iframeUrl;
+    }
+    </script>
+</body>
+</html>

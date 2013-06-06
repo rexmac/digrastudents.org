@@ -1,0 +1,68 @@
+/* =============================================================================
+   Page/Post elements
+   ========================================================================== */
+.container.wrapper {
+  padding: ($baseLineHeight * 2 / 3) $baseLineHeight 0;
+  //background-color: #f5f5f5;
+  //background-image: $noise-bg;
+  background: #f5f5f5 $noise-bg;
+  @include box-shadow("-3px 0 9px rgba(0, 0, 0, 0.15), 3px 0 9px rgba(0, 0, 0, 0.15)");
+  .lightsoff & {
+    background-color: #0f0f0f;
+    @include box-shadow("-3px 0 9px rgba(0, 0, 0, 0.75), 3px 0 9px rgba(0, 0, 0, 0.75)");
+  }
+  > .row { position: relative; }
+}
+
+.post {
+  .tags { margin-bottom: $baseLineHeight; }
+  .next-prev-nav { text-align: center; }
+}
+
+.page-header {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  border: none;
+  h1 {
+    padding-bottom: $baseLineHeight / 4;
+    .lightsoff & { color: #f5f5f5; }
+  }
+  hr { margin-top: 0; }
+}
+
+.content {
+  h4 {
+    border-bottom: 1px solid $grayLighter;
+    text-transform: uppercase;
+    font-size: $baseFontSize;
+    line-height: $baseLineHeight;
+    margin-bottom: $baseLineHeight / 4;
+    .lightsoff & { border-color: $grayDark; }
+  }
+}
+
+.hero-unit {
+  background-color: #ddd;
+  .lightsoff & { background-color: $grayDark; }
+  @media (max-width: 480px) {
+    padding: $baseLineHeight;
+    margin-bottom: $baseLineHeight / 2;
+    h1 { font-size: $baseFontSize * 2; }
+    p {
+      font-size: $baseFontSize;
+      line-height: $baseLineHeight;
+    }
+  }
+}
+
+code {
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #a9032d;
+  .lightsoff & {
+    background-color: darken(#f7f7f9, 80);
+    border-color: darken(#e1e1e8, 70);
+    color: #e4a854;
+  }
+}

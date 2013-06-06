@@ -1,0 +1,36 @@
+---
+layout: default
+no_sidebar: true
+changefreq: weekly
+priority: 1
+---
+
+<div class="hero-unit">
+  <!-- <img class="img-rounded pull-right" src="/img/profile.photo.jpg"> -->
+  <h1>Welcome!</h1>
+  <p>This is the home page of the Digital Games Research Assocation (DiGRA) student representatives. The current representatives are <a href="/about/rkowert">Rachel Kowert</a> and <a href="/about/abrown">Ashley Brown</a>.</p>
+</div>
+
+<div class="row">
+  <div class="span4">
+    <h2>Blog</h2>
+    <p>Please check out our <a href="/blog">blog</a> for news, announcements, and ramblings on academic research of digital (and non-digital) games.</p>
+  </div>
+  <div class="span4">
+    <h2>Forums</h2>
+    <p>Vivamus porttitor bibendum suscipit. Cras mollis viverra elit, sed gravida justo scelerisque quis. Phasellus at pharetra nisi. <a href="http://discourse.digrastudents.org/">Forums</a>.</p>
+  </div>
+  <div class="span4">
+    <h2>Facebook Group</h2>
+    <p>Nunc interdum dui ac purus imperdiet, a auctor augue hendrerit. Vestibulum in turpis at ante adipiscing vehicula. Sed sed tincidunt arcu. <a href="https://www.facebook.com/groups/digrastudents/">Facebook Group</a>.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <h2>Latest Blog Posts</h2>
+    {% assign posts = site.posts %}
+    {% assign listing_limit = 5 %}
+    {% include post-listing.html %}
+  </div>
+</div>

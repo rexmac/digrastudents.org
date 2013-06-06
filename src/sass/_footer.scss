@@ -1,0 +1,22 @@
+footer {
+  border-top: 1px solid #ddd;
+  margin-top: $baseLineHeight;
+  padding-top: $baseLineHeight / 4;
+  .lightsoff & {
+    border-color: $grayDark;
+    color: $gray;
+  }
+  .lightsoff & a {
+    @include opacity(.8);
+  }
+
+  p {
+    font-size: 80%;
+    margin-bottom: 0;
+  }
+
+  .html5-logo {
+    clear: both;
+    margin: 0.5em -10px 0.5em 0;
+  }
+}

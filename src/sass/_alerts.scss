@@ -1,0 +1,16 @@
+/* =============================================================================
+   Alerts
+   ========================================================================== */
+.alert-warn {
+  .lightsoff & {
+    background-color: darken($warningBackground, 40);
+    border-color: darken($warningBorder, 40);
+    color: darken($warningText, 30);
+}
+}
+.alert a {
+  .lightsoff & { color: darken($lightsoffLinkColor, 15); }
+}
+.alert a:focus, .alert a:hover {
+  .lightsoff & { color: darken($lightsoffLinkColorHover, 30); }
+}

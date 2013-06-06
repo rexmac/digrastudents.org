@@ -1,0 +1,9 @@
+.DS_STORE
+.js-cache
+.pygments-cache
+.sass-cache
+*.sublime-*
+Gemfile.lock
+/src/css
+/src/js
+/public

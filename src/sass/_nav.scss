@@ -1,0 +1,31 @@
+/* =============================================================================
+   Navigation
+   ========================================================================== */
+.navbar {
+
+  .brand { padding: 10px 20px; }
+
+  //.box-shadow(0 3px 9px rgba(0, 0, 0, 0.5));
+  .lightsoff & {
+    @extend .navbar-inverse;
+    @include box-shadow(0 3px 9px rgba(128, 128, 128, 0.2));
+  }
+  .nav > li > a {
+    @include opacity(.75);
+    > i { @include opacity(.50); }
+  }
+}
+.navbar-inverse {
+  .nav > li > a {
+    color: #fff;
+  }
+}
+.navbar .nav > li.active > a, .navbar .nav > li > a:focus, .navbar .nav > li > a:hover, .navbar .nav > li.active > a > i, .navbar .nav > li > a:hover > i {
+  @include opacity(1);
+}
+.navbar-fixed-top {
+  @media (max-width: 979px) { margin-bottom: 0; }
+}
+
+#light-switch { @include opacity(.5); }
+#light-switch:hover { @include opacity(1); }

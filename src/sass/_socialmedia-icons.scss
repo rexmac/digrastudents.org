@@ -1,0 +1,22 @@
+/* =============================================================================
+   Social Media Icons
+   ========================================================================== */
+.social-media-icons {
+  text-align: center;
+  a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    margin-right: 0.75em;
+    background: image-url('socialmediabadges.32.png') no-repeat 0 0;
+    @include opacity(.5);
+    &:hover { @include opacity(1); }
+    &.gplus { background-position: -32px 0; }
+    &.rss { background-position: -64px 0; }
+    &.stackoverflow { background-position: -128px 0; }
+    &.twitter { background-position: -96px 0; }
+  }
+  h3 {
+    text-align: left;
+  }
+}

@@ -1,0 +1,50 @@
+/* =============================================================================
+   Forms
+   ========================================================================== */
+legend {
+  margin-bottom: $baseLineHeight / 2;
+  .lightsoff & {
+    color: $grayLight;
+    border-color: $grayDark;
+  }
+}
+
+textarea {
+  .fullwidth { width: 99%; }
+  .resize-v { resize: vertical; }
+}
+
+.help-block {
+  .lightsoff & { color: #777; }
+}
+
+.input-prepend .add-on {
+  color: $grayDarker;
+}
+
+.form-actions {
+  .lightsoff & {
+    background-color: $grayDarker;
+    border-color: $grayDark;
+  }
+}
+
+#step2.accordion-body.in {
+  overflow: visible;
+}
+
+.control-group.error {
+  > label, .help-block, .help-inline {
+    .lightsoff & { color: red; }
+  }
+  .checkbox, .radio, input, select, textarea {
+    .lightsoff & { border-color: red; }
+  }
+  .checkbox:focus, .radio:focus, input:focus, select:focus, textarea:focus {
+    .lightsoff & { border-color: red; }
+    @include box-shadow("inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red");
+  }
+}
+.control-group.error {
+  .lightsoff & { @include formFieldState(red, red, red); }
+}

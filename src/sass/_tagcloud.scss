@@ -1,0 +1,18 @@
+/* =============================================================================
+   Tag Cloud
+   ========================================================================== */
+.sidebar-module.tag-cloud h3 {
+}
+.tags-list {
+  display: inline-block;
+  a {
+    margin-right: $baseLineHeight / 4;
+  }
+  a:hover {
+    text-decoration: none;
+    .label { background-color: $infoText; }
+  }
+  .label {
+    .lightsoff & { background-color: $gray; }
+  }
+}

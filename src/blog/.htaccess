@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /blog
+
+# Remove '/blog' from URI
+RewriteCond %{HTTP_HOST} ^blog\.digrastudents\.org(:80)?$ [NC]
+RewriteCond %{THE_REQUEST} ^(?:.+\ )/blog [NC]
+RewriteRule ^(.*)$ /$1 [QSA,L,R=301]
+
+# Redirect digrastudents.org/blog to blog.digrastudents.org
+RewriteCond %{HTTP_HOST} ^digrastudents\.org(:80)?$ [NC]
+RewriteCond %{REQUEST_URI} ^/blog [NC]
+RewriteRule ^(.*)$ http://blog.digrastudents.org/$1 [QSA,L]
+</IfModule>

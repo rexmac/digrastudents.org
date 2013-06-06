@@ -1,0 +1,210 @@
+<IfModule mod_headers.c>
+  Header set X-UA-Compatible "IE=Edge,chrome=1"
+  <FilesMatch "\.(appcache|crx|css|eot|gif|htc|ico|jpe?g|js|m4a|m4v|manifest|mp4|oex|oga|ogg|ogv|otf|pdf|png|safariextz|svg|svgz|ttf|vcf|webm|webp|woff|xml|xpi)$">
+    Header unset X-UA-Compatible
+  </FilesMatch>
+  Header set X-Powered-By "Brownie points exchanged with wife"
+  Header set X-L "If you're reading this, congratulations, you are not illiterate!"
+</IfModule>
+
+<IfModule mod_setenvif.c>
+  <IfModule mod_headers.c>
+    <FilesMatch "\.(gif|ico|jpe?g|png|svg|svgz|webp)$">
+      SetEnvIf Origin ":" IS_CORS
+      Header set Access-Control-Allow-Origin "*" env=IS_CORS
+    </FilesMatch>
+  </IfModule>
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(eot|font.css|otf|ttc|ttf|woff)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+AddType application/javascript         js jsonp
+AddType application/json               json
+AddType audio/mp4                      m4a f4a f4b
+AddType audio/ogg                      oga ogg
+AddType video/mp4                      mp4 m4v f4v f4p
+AddType video/ogg                      ogv
+AddType video/webm                     webm
+AddType video/x-flv                    flv
+AddType     image/svg+xml              svg svgz
+AddEncoding gzip                       svgz
+AddType application/vnd.ms-fontobject  eot
+AddType application/x-font-ttf         ttf ttc
+AddType application/x-font-woff        woff
+AddType font/opentype                  otf
+AddType application/octet-stream            safariextz
+AddType application/x-chrome-extension      crx
+AddType application/x-opera-extension       oex
+AddType application/x-shockwave-flash       swf
+AddType application/x-web-app-manifest+json webapp
+AddType application/x-xpinstall             xpi
+AddType application/xml                     rss atom xml rdf
+AddType image/webp                          webp
+AddType image/x-icon                        ico
+AddType text/cache-manifest                 appcache manifest
+AddType text/vtt                            vtt
+AddType text/x-component                    htc
+AddType text/x-vcard                        vcf
+
+<IfModule mod_deflate.c>
+  <IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+      SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+      RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+    </IfModule>
+  </IfModule>
+  <IfModule version_module>
+    <IfModule filter_module>
+      <IfVersion >= 2.4>
+        FilterDeclare   COMPRESS
+        FilterProvider  COMPRESS  DEFLATE "%{CONTENT_TYPE} =~ m#^text/(html|css|plain|xml|x-component)#i"
+        FilterProvider  COMPRESS  DEFLATE "%{CONTENT_TYPE} =~ m#^application/(javascript|json|xml|xhtml\+xml|rss\+xml|atom\+xml|vnd\.ms-fontobject|x-font-ttf)#i"
+        FilterProvider  COMPRESS  DEFLATE "%{CONTENT_TYPE} =~ m#^image/(svg\+xml|x-icon)#i"
+        FilterProvider  COMPRESS  DEFLATE "%{CONTENT_TYPE} = 'font/opentype'"
+        FilterChain     COMPRESS
+        FilterProtocol  COMPRESS  DEFLATE change=yes;byteranges=no
+      </IfVersion>
+      <IfVersion < 2.4>
+        FilterDeclare   COMPRESS
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $text/html
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $text/css
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $text/plain
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $text/xml
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $text/x-component
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $application/javascript
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $application/json
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $application/xml
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $application/xhtml+xml
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $application/rss+xml
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $application/atom+xml
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $application/vnd.ms-fontobject
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $image/svg+xml
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $image/x-icon
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $application/x-font-ttf
+        FilterProvider  COMPRESS  DEFLATE resp=Content-Type $font/opentype
+        FilterChain     COMPRESS
+        FilterProtocol  COMPRESS  DEFLATE change=yes;byteranges=no
+      </IfVersion>
+    </IfModule>
+  </IfModule>
+
+  <IfModule !mod_filter.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
+    AddOutputFilterByType DEFLATE application/xhtml+xml application/rss+xml application/atom+xml
+    AddOutputFilterByType DEFLATE image/x-icon image/svg+xml application/vnd.ms-fontobject application/x-font-ttf font/opentype
+  </IfModule>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresDefault                          "access plus 1 month"
+  ExpiresByType text/cache-manifest       "access plus 0 seconds"
+  ExpiresByType text/html                 "access plus 0 seconds"
+  ExpiresByType application/json          "access plus 0 seconds"
+  ExpiresByType application/xml           "access plus 0 seconds"
+  ExpiresByType text/xml                  "access plus 0 seconds"
+  ExpiresByType application/atom+xml      "access plus 1 hour"
+  ExpiresByType application/rss+xml       "access plus 1 hour"
+  ExpiresByType image/x-icon              "access plus 1 week"
+  ExpiresByType audio/ogg                 "access plus 1 month"
+  ExpiresByType image/gif                 "access plus 1 month"
+  ExpiresByType image/jpeg                "access plus 1 month"
+  ExpiresByType image/png                 "access plus 1 month"
+  ExpiresByType video/mp4                 "access plus 1 month"
+  ExpiresByType video/ogg                 "access plus 1 month"
+  ExpiresByType video/webm                "access plus 1 month"
+  ExpiresByType text/x-component          "access plus 1 month"
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+  ExpiresByType application/x-font-ttf    "access plus 1 month"
+  ExpiresByType application/x-font-woff   "access plus 1 month"
+  ExpiresByType font/opentype             "access plus 1 month"
+  ExpiresByType image/svg+xml             "access plus 1 month"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType text/css                  "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header unset ETag
+</IfModule>
+FileETag None
+
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks
+  RewriteEngine On
+# RewriteBase /
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+Options -MultiViews
+ErrorDocument 404 /404/
+AddDefaultCharset utf-8
+AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
+
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{SCRIPT_FILENAME} -d [OR]
+  RewriteCond %{SCRIPT_FILENAME} -f
+  RewriteRule "(^|/)\." - [F]
+</IfModule>
+
+<FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$">
+  Order allow,deny
+  Deny from all
+  Satisfy All
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+RewriteBase /
+
+# Redirect www.blog.digrastudents.org to blog.digrastudents.org
+RewriteCond %{HTTP_HOST} ^www.\.blog\.* [NC]
+RewriteRule ^(.*)$ http://blog.digrastudents.org/$1 [QSA,L]
+
+# Allow asset requests for blog. sub-domain to pass through
+RewriteCond %{HTTP_HOST} ^blog\.* [NC]
+RewriteCond %{REQUEST_URI} ^/(?:(?:404|css|font|img|js)/.*)|(?:favicon\.ico|robots\.txt)$ [NC]
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [QSA,L]
+
+# Cache-busting URLs for asset requests from blog. subdomain (ZOMG, there must be a better way)
+RewriteCond %{HTTP_HOST} ^blog\.* [NC]
+RewriteCond %{REQUEST_URI} ^/(?:(?:404|css|font|img|js)/.*)|(?:favicon\.ico|robots\.txt)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)\.(\d+)\.(js|css|png|jpg|gif)$ $1.$3 [QSA,L]
+
+# Rewrite blog.digrastudents.org to digrastudents.org/blog
+RewriteCond %{HTTP_HOST} ^blog\.* [NC]
+RewriteRule ^(.*)$ blog/$1 [QSA,L]
+
+# Redirect all sub-domains (except those handled above) to digrastudents.org
+RewriteCond %{HTTP_HOST} !^(dev\.)?digrastudents\.org(:80)?$ [NC]
+RewriteRule ^(.*)$ http://digrastudents.org/$1 [QSA,L]
+
+# Cache-busting URLs
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)\.(\d+)\.(js|css|png|jpg|gif)$ $1.$3 [QSA,L]
+
+# Perform no rewrites for actual file and directories
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [QSA,L]
+</IfModule>
