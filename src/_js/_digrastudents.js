@@ -13,6 +13,7 @@ $(function() {
     }
   });
 
+  /*
   // Lights off!
   if($.cookie('lightsoff')) {
     $('html').addClass('lightsoff');
@@ -31,6 +32,7 @@ $(function() {
       $.cookie('lightsoff', false, {expires:30, domain: 'digrastudents.org', path:'/'});
     }
   });
+*/
 
   // Tooltips
   $('a[rel=tooltip]').tooltip();

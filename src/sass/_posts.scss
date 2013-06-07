@@ -5,7 +5,7 @@
   padding: ($baseLineHeight * 2 / 3) $baseLineHeight 0;
   //background-color: #f5f5f5;
   //background-image: $noise-bg;
-  background: #f5f5f5 $noise-bg;
+  background: #f5f5f5;
   @include box-shadow("-3px 0 9px rgba(0, 0, 0, 0.15), 3px 0 9px rgba(0, 0, 0, 0.15)");
   .lightsoff & {
     background-color: #0f0f0f;

@@ -22,6 +22,7 @@ $lightsoffLinkColorHover: #5bf;
 @import "helpers";
 
 body {
+  background: #666 $noise-bg;
   padding-top: $navbarHeight;
   @media (max-width: 979px) {
     padding-top: 0;
@@ -38,7 +39,7 @@ a {
   }
 }
 
-@import "footer";
+p { text-align: justify; }
 
 hr {
   border-top-color: #ddd;
@@ -49,6 +50,16 @@ hr {
   }
 }
 
+.anchor {
+  position: relative;
+  top: -60px;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-unit { padding: 0.5em 2em; }
+
 @import "posts";
 @import "accordions";
 @import "alerts";
@@ -56,6 +67,7 @@ hr {
 @import "dictionary";
 @import "forms";
 @import "nav";
+@import "footer";
 
 /* =============================================================================
    Thumbnails
