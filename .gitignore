@@ -3,7 +3,6 @@
 .pygments-cache
 .sass-cache
 *.sublime-*
-Gemfile.lock
 /src/css
 /src/js
 /public
