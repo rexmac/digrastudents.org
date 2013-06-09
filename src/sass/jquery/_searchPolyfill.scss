@@ -1,0 +1,67 @@
+@import "compass";
+
+/* =============================================================================
+   jQuery SearchPolyfill
+   ========================================================================== */
+.search-input-wrapper {
+  display: inline-block;
+  position: relative;
+}
+.search-input-wrapper i, .search-input-wrapper a {
+  display: block;
+  position: absolute;
+  top: 0.35em;
+  z-index: 100;
+  color: #bbb;
+  font-size: 1.2em;
+}
+.search-input-wrapper .icon-search {
+  left: 0.4em;
+}
+.search-input-wrapper .icon-remove-sign {
+  color: #bbb;
+  text-decoration: none;
+  right: 0.4em;
+}
+.search-input-wrapper .icon-remove-sign:hover {
+  color: #999;
+}
+.search-input-wrapper .icon-remove-sign:active {
+  color: #777;
+}
+input[type="search"] {
+  position: relative;
+  padding: 0.25em 1.75em;
+  border: 1px solid #bbb;
+  @include border-radius(0.3em);
+}
+input[type="search"]:focus {
+  border-color: #999;
+  outline: 0;
+  outline: none;
+}
+
+.input-prepend {
+  font-size: inherit;
+
+  a.icon-remove-sign {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    top: 0.4em;
+    right: 0.4em;
+    color: #bbb;
+    font-size: 1.2em;
+    text-decoration: none;
+
+    &:hover {
+      color: #999;
+      text-decoration: none;
+    }
+    &:active {
+      color: #777;
+      text-decoration: none;
+    }
+  }
+}
+

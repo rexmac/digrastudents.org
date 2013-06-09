@@ -1,0 +1,44 @@
+
+@import "jquery/searchPolyfill";
+
+table.games-research-map {
+  margin-bottom: 1em;
+
+  td {
+    cursor: pointer;
+  }
+  td.details,
+  td.details td{
+    cursor: auto;
+  }
+  td.details tr:first-child td {
+    border-top: none;
+  }
+}
+
+.dataTables_length {
+  float: right;
+  margin: -1px 2em 0 0;
+
+  label,
+  select {
+    margin: 0;
+  }
+  select {
+    height: auto;
+    line-height: 1;
+  }
+}
+
+p.hint {
+  span:first-child {
+    font-weight: bold;
+    font-style: oblique;
+  }
+
+  &::before {
+    content: "Hint: ";
+    font-weight: bold;
+    font-style: oblique;
+  }
+}

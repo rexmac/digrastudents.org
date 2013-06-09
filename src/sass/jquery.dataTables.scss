@@ -1,0 +1,392 @@
+@import "compass";
+
+/* =============================================================================
+   Table
+   ========================================================================== */
+table.dataTable {
+  margin: 0 auto;
+  clear: both;
+  width: 100%;
+
+  thead th {
+    padding: 3px 18px 3px 10px;
+    border-bottom: 1px solid black;
+    font-weight: bold;
+    cursor: pointer;
+    *cursor: hand;
+  }
+
+  tfoot th {
+    padding: 3px 18px 3px 10px;
+    border-top: 1px solid black;
+    font-weight: bold;
+  }
+
+  td { padding: 3px 10px; }
+  td.center { text-align: center; }
+  td.dataTables_empty {
+  font-style: oblique;
+    text-align: center;
+  }
+
+  /* Borders */
+  border-collapse: collapse;
+  border-spacing: 0;
+  tbody td,
+  tfoot th {
+    border-top: 1px solid #ddd;
+  }
+  //tbody tr:first-child td { border-top: 0; }
+  //thead th { border-bottom: 1px solid #ddd; }
+
+  /* Striping */
+  //tr.odd { background-color: #E2E4FF; }
+  //tr.even { background-color: #fff; }
+  //tr.odd td.sorting_1 { background-color: #D3D6FF; }
+  //tr.odd td.sorting_2 { background-color: #DADCFF; }
+  //tr.odd td.sorting_3 { background-color: #E0E2FF; }
+  //tr.even td.sorting_1 { background-color: #EAEBFF; }
+  //tr.even td.sorting_2 { background-color: #F2F3FF; }
+  //tr.even td.sorting_3 { background-color: #F9F9FF; }
+  tr.odd { background-color: #ededed; }
+  tr.even { background-color: #fff; }
+  tr.odd td.sorting_1 { background-color: #e1e1e1; }
+  tr.odd td.sorting_2 { background-color: #e5e5e5; }
+  tr.odd td.sorting_3 { background-color: #e9e9e9; }
+  tr.even td.sorting_1 { background-color: #f1f1f1; }
+  tr.even td.sorting_2 { background-color: #f5f5f5; }
+  tr.even td.sorting_3 { background-color: #f9f9f9; }
+}
+
+/* =============================================================================
+   Table wrapper
+   ========================================================================== */
+.dataTables_wrapper {
+  position: relative;
+  clear: both;
+  *zoom: 1; /* IE 7 hack, for better float clearing */
+  margin-bottom: 1em;
+}
+
+/* =============================================================================
+   Page length menu
+   ========================================================================== */
+.dataTables_length {
+  float: left;
+  //white-space: nowrap;
+  select { width: auto; }
+}
+
+/* =============================================================================
+   Filter
+   ========================================================================== */
+.dataTables_filter {
+  float: right;
+  text-align: right;
+  //white-space: nowrap;
+}
+
+/* =============================================================================
+   Table information
+   ========================================================================== */
+.dataTables_info {
+  clear: both;
+  float: left;
+}
+
+/* =============================================================================
+   Pagination
+   ========================================================================== */
+.dataTables_paginate {
+  float: right;
+  //margin: 4px 0 0;
+  //padding: 0 15px;
+  text-align: right;
+}
+
+/* Two button pagination - previous / next */
+.dataTables_paginate a {
+  color: #111111 !important;
+  display: inline-block;
+  outline: none;
+  position: relative;
+  //text-decoration: underline;
+  text-decoration: none;
+  text-decoration: none\0/IE; /* Hack for IE8, 9, and IE10pp4, as those have trouble with text-decoration in :after pseudo-elements */
+}
+/*
+.paginate_disabled_previous,
+.paginate_enabled_previous,
+.paginate_disabled_next,
+.paginate_enabled_next {
+  height: 19px;
+  float: left;
+  cursor: pointer;
+  *cursor: hand;
+  color: #111 !important;
+}
+.paginate_disabled_previous:hover,
+.paginate_enabled_previous:hover,
+.paginate_disabled_next:hover,
+.paginate_enabled_next:hover {
+  text-decoration: none !important;
+}
+.paginate_disabled_previous:active,
+.paginate_enabled_previous:active,
+.paginate_disabled_next:active,
+.paginate_enabled_next:active {
+  outline: none;
+}
+*/
+a.paginate_disabled_previous,
+a.paginate_disabled_next {
+  color: #ddd !important;
+  text-decoration: none;
+}
+/*.paginate_disabled_previous,
+.paginate_enabled_previous {
+  margin-right: 1em;
+}*/
+.paginate_disabled_next,
+.paginate_enabled_next {
+  margin-left: 10px;
+}
+/*
+.paginate_enabled_previous span,
+.paginate_disabled_previous span,
+.paginate_enabled_next span,
+.paginate_disabled_next span {
+  display: inline-block;
+  padding-top: 2px;
+}
+.paginate_enabled_previous .paginate-icon,
+.paginate_enabled_previous:hover .paginate-icon,
+.paginate_disabled_previous .paginate-icon,
+.paginate_enabled_next .paginate-icon,
+.paginate_enabled_next:hover .paginate-icon,
+.paginate_disabled_next .paginate-icon {
+  display: block;
+  float: left;
+  width: 19px;
+  height: 19px;
+  padding: 0;
+  margin: 0;
+  background: image-url('datatables.png') no-repeat -19px 0;
+}
+.paginate_enabled_previous:hover .paginate-icon { background-position: -38px 0; }
+.paginate_disabled_previous .paginate-icon { background-position: 0 0; }
+.paginate_enabled_next .paginate-icon,
+.paginate_enabled_next:hover .paginate-icon,
+.paginate_disabled_next .paginate-icon { float: right; }
+.paginate_enabled_next .paginate-icon { background-position: -19px -19px; }
+.paginate_enabled_next:hover .paginate-icon { background-position: -38px -19px; }
+.paginate_disabled_next .paginate-icon { background-position: 0 -19px; }
+*/
+.paginate_enabled_previous:hover,
+.paginate_enabled_next:hover {
+  color: #333;
+  cursor: pointer;
+  text-decoration: none;
+}
+.paginate_disabled_previous:before,
+.paginate_enabled_previous:before,
+.paginate_disabled_next:after,
+.paginate_enabled_next:after {
+  text-align: left;
+  font-family: FontAwesome;
+  font-size: 14px;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  content: "\f053";
+  //color: #d9edf7;
+  color: #666;
+  text-shadow: 0.1em 0.1em #333;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -14px;
+  margin: auto;
+  height: 14px;
+  width: 14px;
+  line-height: 1;
+}
+.paginate_disabled_next:after,
+.paginate_enabled_next:after {
+  text-align: right;
+  content: "\f054";
+  left: auto;
+}
+.paginate_disabled_previous:before,
+.paginate_disabled_next:after {
+  //color: #f9f9f9;
+  color: #ddd;
+  text-shadow: 0.1em 0.1em #aaa;
+}
+.paginate_enabled_previous:hover:before,
+.paginate_enabled_next:hover:after {
+  //color: #049cdb;
+  color: #333;
+  text-shadow: 0.1em 0.1em #000;
+}
+
+/* Full number pagination */
+.paging_full_numbers {
+  height: 22px;
+  line-height: 22px;
+}
+.paging_full_numbers a:active {
+  outline: none
+}
+.paging_full_numbers a:hover {
+  text-decoration: none;
+}
+.paging_full_numbers a.paginate_button,
+.paging_full_numbers a.paginate_active {
+  border: 1px solid #aaa;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 2px 5px;
+  margin: 0 3px;
+  cursor: pointer;
+  *cursor: hand;
+  color: #333 !important;
+}
+.paging_full_numbers a.paginate_button {
+  background-color: #ddd;
+}
+.paging_full_numbers a.paginate_button:hover {
+  background-color: #ccc;
+  text-decoration: none !important;
+}
+.paging_full_numbers a.paginate_active {
+  background-color: #99b3ff;
+}
+
+/* =============================================================================
+   Processing indicator
+   ========================================================================== */
+.dataTables_processing {
+  display: none;
+/*  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 30px;
+  margin-left: -125px;
+  margin-top: -15px;
+  padding: 14px 0 2px 0;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  background-color: white;
+  */
+}
+/*
+.dataTables_processing span {
+  background: #FFF url(/images/loading.gif) no-repeat 0 50%;
+  padding-left: 20px;
+}
+*/
+
+/* =============================================================================
+   Sorting
+   ========================================================================== */
+/*.sorting .sort-icon,
+.sorting_asc .sort-icon,
+.sorting_desc .sort-icon,
+.sorting_asc_disabled .sort-icon,
+.sorting_desc_disabled .sort-icon {
+  display: block;
+  float: right;
+  width: 19px;
+  height: 19px;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-image: image-url('datatables.png');
+}
+.sorting .sort-icon { background-position: 0 -38px; }
+.sorting_asc .sort-icon { background-position: -57px -38px; }
+.sorting_desc .sort-icon { background-position: -38px -38px; }
+.sorting_asc_disabled .sort-icon { background-position: -57px -19px; }
+.sorting_desc_disabled .sort-icon { background-position: -19px -38px; }
+*/
+/* TablePress (http://tablepress.org/) method of using FontAwesome font rather than background images for sorting icons */
+.dataTables_wrapper .sorting,
+.dataTables_wrapper .sorting_asc,
+.dataTables_wrapper .sorting_desc {
+  padding-right: 20px; /* more right padding for sort arrows */
+  cursor: pointer;
+  outline: none;
+}
+.dataTables_wrapper .sorting div,
+.dataTables_wrapper .sorting_asc div,
+.dataTables_wrapper .sorting_desc div {
+  position: relative;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+}
+.dataTables_wrapper .sorting div:after,
+.dataTables_wrapper .sorting_asc div:after,
+.dataTables_wrapper .sorting_desc div:after {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: auto;
+  right: -14px;
+  margin: auto;
+  height: 14px;
+  line-height: 1;
+  padding: 1px 0 0;
+}
+.dataTables_wrapper .sorting div:after {
+  content: "\f0dc";
+  @include opacity(0.25);
+}
+.dataTables_wrapper .sorting_asc div:after {
+  content: "\f0d8";
+  padding: 0 0 1px;
+}
+.dataTables_wrapper .sorting_desc div:after {
+  content: "\f0d7";
+}
+.dataTables_wrapper .sorting:hover,
+.dataTables_wrapper .sorting_asc,
+.dataTables_wrapper .sorting_desc {
+  /*background-color: #049cdb;*/
+}
+
+table.dataTable thead th:active,
+table.dataTable thead td:active {
+  outline: none;
+}
+
+/* =============================================================================
+   Scrolling
+   ========================================================================== */
+.dataTables_scroll {
+  clear: both;
+}
+.dataTables_scrollBody {
+  *margin-top: -1px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* =============================================================================
+   Self-clearing
+   ========================================================================== */
+.dataTables_wrapper:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
