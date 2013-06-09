@@ -1,0 +1,24 @@
+iframe.youtube {
+  display: block;
+  width: 640px;
+  height: 385px;
+}
+
+@media (max-width: 1024px) {
+  iframe.youtube {
+    width: 475px;
+    height: 286px;
+  }
+}
+@media (max-width: 480px) {
+  iframe.youtube {
+    width: 400px;
+    height: 241px;
+  }
+}
+@media (max-width: 320px) {
+  iframe.youtube {
+    width: 160px;
+    height: 96px;
+  }
+}

@@ -13,22 +13,11 @@
   <link rel="stylesheet" href="{{ '/css/site.css' | cachebust_url }}" />
   <script src="/js/libs/modernizr-2.6.2.min.js"></script>
 </head>
-<body{% if page.body_id %} id="{{ page.body_id }}"{% endif %}>
+<body{% if page.body_id %} id="{{ page.body_id }}"{% endif %}{% if page.body_class %} class="{{ page.body_class }}"{% endif %}>
+
   {% include header.html %}
 
-  <div class="container wrapper">
-
-    <div class="row">
-      {% if page.no_sidebar %}
-        <div role="main" class="span12">{{ content }}</div>
-      {% else %}
-        <div role="main" class="span8">{{ content }}</div>
-        {% include sidebar.html %}
-      {% endif %}
-    </div>
-
-    {% capture footer %}{% include footer.md %}{% endcapture %}{{ footer | markdownify }}
-  </div>
+  {{ content }}
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.9.0.min.js"><\/script>')</script>

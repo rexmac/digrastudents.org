@@ -27,5 +27,12 @@
   @media (max-width: 979px) { margin-bottom: 0; }
 }
 
-#light-switch { @include opacity(.5); }
-#light-switch:hover { @include opacity(1); }
+/* =============================================================================
+   Light switch
+   ========================================================================== */
+#light-switch {
+  @include opacity(.5);
+}
+#light-switch:hover {
+  @include opacity(1);
+}

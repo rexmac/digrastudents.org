@@ -1,5 +1,5 @@
 <footer>
-<div class="row">
+<div class="row{% if page.fluid %}-fluid{% endif %}">
 <div class="span8" markdown="1">
 &copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. Please read [the license page]({{ site.url }}/license) for details about the licensing of this website's content.
 

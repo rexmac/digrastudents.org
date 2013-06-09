@@ -31,7 +31,7 @@ module Jekyll
       site.posts.each do |p|
         #if p == @post
         if p.name.gsub(/\..+$/, '') == @post.name
-          return (site.config['url'] + p.url).gsub(/\/\/rexmac/, '//blog.rexmac').gsub(/\/blog\//, '/')
+          return (site.config['url'] + p.url).gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "/")
         end
       end
 

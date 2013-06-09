@@ -13,7 +13,7 @@ module Jekyll
       self.data.deep_merge({
         "title"      => self.data["title"] || self.slug.split('-').select {|w| w.capitalize! || w }.join(' '),
         "url"        => self.url,
-        "full_url"   => (site.config['url'] + self.url).gsub(/\/\/rexmac/, '//blog.rexmac').gsub(/\/blog\//, '/'),
+        "full_url"   => (site.config['url'] + self.url).gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "/"),
         "date"       => self.date,
         "id"         => self.id,
         "categories" => self.categories,

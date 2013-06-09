@@ -8,10 +8,11 @@ module Jekyll
 
     def render(context)
       result = ""
-      categories = context.registers[:site].categories
+      site = context.registers[:site]
+      categories = site.categories
 
       categories.keys.each do |category|
-        result << %(<a href="/blog/categories/#{category.slugize}"><strong>#{category}</strong></a> (#{categories[category].length})<br />)
+        result << %(<a href="/#{site.config['category_dir']}/#{category.slugize}"><strong>#{category}</strong></a> (#{categories[category].length})<br />)
       end
 
       result

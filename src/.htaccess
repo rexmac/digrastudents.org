@@ -90,7 +90,6 @@ AddType text/x-vcard                        vcf
       </IfVersion>
     </IfModule>
   </IfModule>
-
   <IfModule !mod_filter.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/css
     AddOutputFilterByType DEFLATE application/javascript application/json
@@ -136,7 +135,6 @@ FileETag None
 <IfModule mod_rewrite.c>
   Options +FollowSymlinks
   RewriteEngine On
-# RewriteBase /
 </IfModule>
 
 <IfModule mod_rewrite.c>

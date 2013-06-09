@@ -4,11 +4,10 @@
     Posted on {{ post.date | format_date }}
     {% unless no_category %}
       {% if post.category %}
-        in <a href="/blog/categories/{{ post.category | slugize }}">{{ post.category }}</a>
+        in <a href="/{{ site.category_dir }}/{{ post.category | slugize }}">{{ post.category }}</a>
       {% endif %}
     {% endunless %}
   </h5>
 
-  <p>{{ post.content | strip_html | truncatewords: 75 }}</p>
-  <p><a href="{{ post.full_url }}">Read more&hellip;</a></p>
+  {{ post.content | postmorefilter: post.full_url, "Continue reading »", 75 }}
 {% endfor %}

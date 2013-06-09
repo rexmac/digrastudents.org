@@ -12,6 +12,7 @@
     @include box-shadow("-3px 0 9px rgba(0, 0, 0, 0.75), 3px 0 9px rgba(0, 0, 0, 0.75)");
   }
   > .row { position: relative; }
+  p { text-align: justify; }
 }
 
 .post {

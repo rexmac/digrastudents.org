@@ -71,7 +71,7 @@ module Jekyll
     end
 
     def location_on_server(my_url)
-      "#{my_url}#{url}".gsub(/\/\/digrastudents/, '//blog.digrastudents').gsub(/\/blog\//, '/')
+      "#{my_url}#{url}".gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "/")
     end
   end
 
@@ -86,7 +86,7 @@ module Jekyll
       location = "#{my_url}#{@dir}#{url}"
       location.gsub!(/index\.html$/, "")
       if location.match(/\/blog\//)
-        location.gsub!(/\/\/digrastudents/, '//blog.digrastudents').gsub!(/\/blog\//, '/')
+        location.gsub!("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub!("/blog/", "/")
       end
       location
     end

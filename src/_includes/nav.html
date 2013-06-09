@@ -1,6 +1,6 @@
 <div role="navigation" class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
-    <div class="container">
+    <div class="container{% if page.fluid %}-fluid{%endif%}">
 
        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
       <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -17,8 +17,8 @@
         <ul class="nav">
           <li><a href="{{ site.url }}/"><i class="icon-home"></i> Home</a></li>
           <li><a href="{{ site.url }}/about">About</a></li>
-          <li><a href="{{ site.url | replace:'digrastudents','blog.digrastudents' }}">Blog</a></li>
-          <li><a href="{{ site.url | replace:'digrastudents','discourse.digrastudents' }}">Forums</a></li>
+          <li><a href="{{ site.url | replace: site.domain, 'blog.' + site.domain }}">Blog</a></li>
+          <li><a href="{{ site.url | replace: site.domain, 'discourse.' + site.domain }}">Forums</a></li>
           <li><a href="mailto:info@digrastudents.org">Contact</a></li>
         </ul>
 
@@ -31,6 +31,4 @@
     </div>
   </div>
 </div>
-<!--[if lt IE 10]>
-    <div class="chromeframe alert alert-error"><strong>Warning!</strong> You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</div>
-<![endif]-->
+<!--[if lt IE 10]><div class="chromeframe alert alert-error"><strong>Warning!</strong> You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to improve your experience on this site.</div><![endif]-->

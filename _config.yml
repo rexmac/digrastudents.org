@@ -2,6 +2,7 @@
 #     Major Site Settings     #
 #-----------------------------#
 url: http://digrastudents.org
+domain: digrastudents.org
 title: digrastudents.org
 description: "Home page of the Digital Gaming Research Assocation (DiGRA) Student Representatives"
 author:
@@ -12,6 +13,9 @@ analytics:
   provider: google
   google:
     tracking_id: 'UA-32704915-1'
+rsync:
+  user: digrastu
+  host: digrastudents.org
 
 #---------------------------------------#
 #             Blog Settings             #

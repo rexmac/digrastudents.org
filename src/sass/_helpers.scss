@@ -20,3 +20,25 @@ img.align-right {
 p.small { font-size: 80%; }
 .strikethrough { text-decoration: line-through; }
 a.strikethrough { text-decoration: line-through!important; }
+.text-center { text-align: center; }
+.text-justify { text-align: justify; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.underline { border-bottom: 1px solid $gray; }
+.very-large-text {
+  font-size: 60px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-rendering: optimizelegibility;
+}
+.pageanchor,
+.readmore-anchor {
+  position: relative;
+  display: inline-block;
+  top: -40px;
+  width: 0;
+  height: 0;
+}
+.readmore-anchor {
+  top: -60px;
+}

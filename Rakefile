@@ -7,10 +7,10 @@ require 'fileutils'
 ENV['JEKYLL_ENV'] = ENV['JEKYLL_ENV'] ? ENV['JEKYLL_ENV'] : "production"
 CONFIG = YAML.load_file("_config.yml")
 
-dest_dir   = CONFIG['destination'] || '_site'
-src_dir = CONFIG['source'] || '.'
+dest_dir   = CONFIG['destination'] || "_site"
+src_dir = CONFIG['source'] || "."
 js_cache_dir = ".js-cache"
-rsync_params = "-cvzr --delete #{dest_dir}/ digrastu@digrastudents.org:~/public_html/"
+rsync_params = "-cvzr --delete #{dest_dir}/ #{CONFIG['rsync']['user']}@#{CONFIG['rsync']['host']}:#{CONFIG['rsync']['path']}"
 
 def ask(message, valid_options)
   if valid_options
@@ -89,7 +89,7 @@ task :clean do
   message "Cleaning caches and public directory...", false
   #rm_rf ["#{dest_dir}/**", ".pygments-cache/**", ".sass-cache/**", "#{js_cache_dir}/**"]
   rm_rf [Dir.glob("#{dest_dir}/*"), Dir.glob(".pygments-cache/*"), Dir.glob(".sass-cache/*"), Dir.glob("#{js_cache_dir}/*")], {:verbose => Rake.verbose == true}
-  message "done".colorize(:green) + '.'
+  message "done".colorize(:green) + "."
 end
 
 desc "Build website"
@@ -233,8 +233,7 @@ task :deploy do
     elsif rsync_params.nil?
       raise "no rsync settings found"
     else
-      puts "DISABLED"
-      #system "rsync #{rsync_params}"
+      system "rsync #{rsync_params}"
     end
   rescue
     message "failed".colorized(:red) + ". - #{e.message}"
