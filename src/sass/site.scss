@@ -81,7 +81,9 @@ hr {
 }
 
 .twitter-timeline {
+  width: 100%;
   margin-top: 1em;
+  @include box-shadow(0 0 8px 1px rgba(0, 0, 0, 0.05));
 }
 
 @import "foundation/components/keystrokes";
