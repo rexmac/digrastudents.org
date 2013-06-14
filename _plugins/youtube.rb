@@ -13,7 +13,7 @@ module Jekyll
     end
 
     def render(context)
-      %(<iframe class="youtube center" width="#{@@width}" height="#{@@height}" src="http://www.youtube.com/embed/#{@id}" frameborder="0" allowfullscreen></iframe>)
+      %(<p class="text-center"><iframe class="youtube" width="#{@@width}" height="#{@@height}" src="http://www.youtube.com/embed/#{@id}" frameborder="0" allowfullscreen></iframe></p>)
     end
   end
 end

@@ -1,0 +1,58 @@
+/* =============================================================================
+   Profile image flip
+   ========================================================================== */
+.flip {
+  @include scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
+.profile-image-flip {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  z-index: 1;
+  float: left;
+  //margin: 0 auto;
+  //padding: 4px;
+  margin: 0 1em 1em 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+
+  & > div {
+    width: 200px;
+    height: 200px;
+  }
+  .face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+  }
+  .face.front {
+    //width: 128px;
+    //height: 128px;
+    //margin: 36px;
+  }
+  .face.back {
+    display: none;
+  }
+  .csstransforms3d.csstransitions & {
+    @include perspective(1000px);
+    & > div {
+      @include transform-style(preserve-3d);
+      @include transition(all 1.0s linear);
+    }
+    &:hover > div { @include rotateY(180deg); }
+    .face { @include backface-visibility(hidden); }
+    .face.back {
+      display: block;
+      @include rotateY(180deg);
+    }
+  }
+}
+
+.sidebar-module.profile-image {
+  margin-bottom: $baseLineHeight;
+}

@@ -31,14 +31,14 @@ a.strikethrough { text-decoration: line-through!important; }
   letter-spacing: -1px;
   text-rendering: optimizelegibility;
 }
-.pageanchor,
+.page-anchor,
 .readmore-anchor {
   position: relative;
   display: inline-block;
-  top: -40px;
+  top: -60px;
   width: 0;
   height: 0;
-}
-.readmore-anchor {
-  top: -60px;
+  float: left;
+  margin: 0;
+  padding: 0;
 }
