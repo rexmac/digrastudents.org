@@ -21,7 +21,7 @@ def ask(message, valid_options)
   answer
 end
 
-def cache_js(content, cache_dir)
+def cache_js(content, cache_dir, output_file)
   hash = Digest::SHA256.hexdigest(content)
   vmessage "  Hash: ".colorize(:cyan) + hash
   cache_file = File.join(cache_dir, hash + ".js")
@@ -180,7 +180,7 @@ task :js do
           }
 
           # Cache concatenated JS
-          cached_file = cache_js(content, js_cache_dir)
+          cached_file = cache_js(content, js_cache_dir, output_file)
 
           # Copy cached file to destination directory
           copy_file_with_path(cached_file, output_file)
@@ -197,7 +197,7 @@ task :js do
     a.each {|file|
       vmessage "Minifying file: ".colorize(:cyan) + file
       processed.push(file)
-      cached_file = cache_js(File.read(file), js_cache_dir)
+      cached_file = cache_js(File.read(file), js_cache_dir, file)
       output_file = File.join(src_dir, 'js', File.basename(file, '.js').gsub(/^_/, '') + '.min.js')
       vmessage "  Writing minified file to: ".colorize(:cyan) + output_file
       copy_file_with_path(cached_file, output_file)
