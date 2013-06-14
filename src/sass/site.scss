@@ -21,6 +21,7 @@ $lightsoffLinkColorHover: #5bf;
 
 @import "helpers";
 
+/*
 @font-face {
   font-family: 'LeagueGothicRegular';
   src: url('/font/LeagueGothic-Regular-webfont.eot');
@@ -31,6 +32,7 @@ $lightsoffLinkColorHover: #5bf;
   font-weight: normal;
   font-style: normal;
 }
+*/
 
 body {
   background: #666 $noise-bg;
@@ -69,8 +71,8 @@ hr {
 
 .page {
   h1, h2, h3 {
-    font-family: 'LeagueGothicRegular', $sansFontFamily;
-    text-transform: uppercase;
+    //font-family: 'LeagueGothicRegular', $sansFontFamily;
+    //text-transform: uppercase;
   }
 
   h3 {
