@@ -3,16 +3,28 @@
 
 table.games-research-map {
   margin-bottom: 1em;
+  border: 1px solid #ccc;
+  @include border-radius(4px);
+
+  tr:last-child td:first-child {
+    @include border-bottom-left-radius(4px);
+  }
 
   td {
     cursor: pointer;
   }
   td.details,
-  td.details td{
+  td.details td {
     cursor: auto;
   }
-  td.details tr:first-child td {
-    border-top: none;
+  td.details {
+    th {
+      text-align: right;
+    }
+
+    tr:first-child td {
+      border-top: none;
+    }
   }
 }
 
