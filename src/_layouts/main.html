@@ -11,6 +11,9 @@
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
   <meta name="viewport" content="width=device-width" />
   <link rel="stylesheet" href="{{ '/css/site.css' | cachebust_url }}" />
+  {% if page.css %}{% for css in page.css %}
+  <link rel="stylesheet" href="{{ css | cachebust_url }}" />
+  {% endfor %}{% endif %}
   <script src="/js/libs/modernizr-2.6.2.min.js"></script>
 </head>
 <body{% if page.body_id %} id="{{ page.body_id }}"{% endif %}{% if page.body_class %} class="{{ page.body_class }}"{% endif %}>
