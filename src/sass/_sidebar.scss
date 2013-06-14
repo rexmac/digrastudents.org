@@ -13,6 +13,8 @@
   padding-left: 0;
   padding-right: $baseLineHeight;
   margin-bottom: $baseLineHeight / 2;
+  font-family: 'LeagueGothicRegular', $sansFontFamily;
+  text-transform: uppercase;
   //@include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
   //@include gradient-vertical($navbarBackgroundHighlight, #ddd);
   //@include border-radius(4px);
