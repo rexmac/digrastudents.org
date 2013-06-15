@@ -25,7 +25,8 @@ $(function() {
     },
     success: function(data, textStatus, jqXhr) {
       var aaData = [],
-          $headers = $('<tr/>');
+          $headers = $('<tr/>'),
+          d = new Date(data.date * 1000);
 
       $.each(data.data, function(i, item) {
         //aaData.push([item.continent, item.country, item.university, item.department, item.group, item.program, item.contact, item.link, item.focus]);
@@ -68,6 +69,8 @@ $(function() {
           $table.fnOpen($tr[0], formatDetails($table, $tr[0]), 'details');
         }
       });
+
+      $('.games-research-map-timestamp').html('The content of the table is current as of ' + d.toUTCString() + '.');
     },
     type: 'GET',
     url: '/games-research-map/data'

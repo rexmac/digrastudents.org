@@ -7,7 +7,7 @@ no_sidebar: true
 ---
 
 
-The content of this table comes form the [old DiGRA website](http://www.digra.org:8080/Plone/shared/game-research-map/) and is not maintained by us. For ease of accessibility, we have redisplayed the information here.
+The content of this table comes form the [old DiGRA website](http://www.digra.org:8080/Plone/shared/game-research-map/) and is not maintained by us. For ease of accessibility, we have redisplayed the information here. <span class="games-research-map-timestamp"></span>
 
 <div class="alert alert-info">
 <p class="hint">Click a row to expand it and see details about the position. Click the row again to collapse and hide the details.</p>
