@@ -7,6 +7,7 @@ $link-color: $linkColor;
 $noise-bg: image-url('noise.png') 0 0 !default;
 $icons-sprite: image-url($iconSpritePath) !default;
 $icons-white-sprite: image-url($iconWhiteSpritePath) !default;
+$pattern-bg: image-url('DIGRA_PatternBG.jpg') 0 0 !default;
 
 @mixin selection($bg, $color: inherit, $text-shadow: none){
   * {
@@ -35,7 +36,7 @@ $lightsoffLinkColorHover: #5bf;
 */
 
 body {
-  background: #666 $noise-bg;
+  background: #000;
   padding-top: $navbarHeight;
   @media (max-width: 979px) {
     padding-top: 0;
@@ -44,6 +45,17 @@ body {
     background-color: #1d1d1d;
     color: #bbb;
   }
+}
+
+#body-bg {
+  background: #000 $pattern-bg;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -9;
+  @include opacity(0.3);
 }
 
 a {

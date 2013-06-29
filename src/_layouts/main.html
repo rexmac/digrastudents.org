@@ -18,6 +18,8 @@
 </head>
 <body{% if page.body_id %} id="{{ page.body_id }}"{% endif %}{% if page.body_class %} class="{{ page.body_class }}"{% endif %}>
 
+  <div id="body-bg"></div>
+
   {% include header.html %}
 
   {{ content }}

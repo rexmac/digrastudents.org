@@ -16,6 +16,7 @@ analytics:
 rsync:
   user: digrastu
   host: digrastudents.org
+  path: ~/public_html/
 
 #---------------------------------------#
 #             Blog Settings             #
