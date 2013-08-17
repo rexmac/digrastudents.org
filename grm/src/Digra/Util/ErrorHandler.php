@@ -1,0 +1,44 @@
+<?php
+
+namespace Digra\Util;
+
+/**
+ * Convert PHP errors into exceptions
+ *
+ * @author Artem Lopata <biozshock@gmail.com>
+ */
+class ErrorHandler {
+  /**
+   * Error handler
+   *
+   * @param int    $level   Level of the error raised
+   * @param string $message Error message
+   * @param string $file    Filename that the error was raised in
+   * @param int    $line    Line number the error was raised at
+   *
+   * @static
+   * @throws \ErrorException
+   */
+  public static function handle($level, $message, $file, $line) {
+    // Respect error_reporting being disabled
+    if(!error_reporting()) {
+      return;
+    }
+
+    if(ini_get('xdebug.scream')) {
+      $message .= PHP_EOL . PHP_EOL . 'Warning: You have xdebug.scream enabled, the warning above may be' . PHP_EOL .
+                  'a legitimately suppressed error that you were not supposed to see.';
+    }
+
+    throw new \ErrorException($message, 0, $level, $file, $line);
+  }
+
+  /**
+   * Register error handler
+   *
+   * @static
+   */
+  public static function register() {
+    set_error_handler(array(__CLASS__, 'handle'));
+  }
+}
