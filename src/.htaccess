@@ -206,7 +206,10 @@ RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [QSA,L]
 
-# Rewrite games-research-map/data to zfapp.php
-RewriteRule ^games-research-map\/data zfapp.php [NC,L]
+# Rewrite games-research/<actions> to zfapp.php
+RewriteRule ^games-research\/journals zfapp.php [NC,L]
+RewriteRule ^games-research\/positions zfapp.php [NC,L]
+
+RewriteRule ^games-research-map games-research-positions [NC,L,R=301]
 
 </IfModule>

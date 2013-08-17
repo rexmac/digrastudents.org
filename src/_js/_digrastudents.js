@@ -1,4 +1,9 @@
 $(function() {
+  // Open external links in new tab/window
+   $('a').not('[href*="' + document.domain + '"], [href^="/"], [href^="javascript:;"], [href^="#"]').each(function() {
+     this.target = '_blank';
+   });
+
   // Navigation
   $('.navbar-inner').find('ul.nav').first().children().each(function() {
     var path = window.location.pathname;

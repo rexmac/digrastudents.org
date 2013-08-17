@@ -46,10 +46,15 @@ exclude: [
   "sass"
 ]
 js: [
-  "games-research-table.min.js": [
+  "games-research-journals.min.js": [
     "libs/jquery.dataTables.js",
     "libs/jquery.searchPolyfill.js",
-    "_games-research-table.js"
+    "_games-research-journals.js"
+  ],
+  "games-research-positions.min.js": [
+    "libs/jquery.dataTables.js",
+    "libs/jquery.searchPolyfill.js",
+    "_games-research-positions.js"
   ],
   "site.min.js": [
     "libs/sprintf.min.js",

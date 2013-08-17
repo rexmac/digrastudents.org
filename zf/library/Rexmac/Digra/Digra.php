@@ -8,7 +8,9 @@ namespace Rexmac\Digra;
 class Digra {
 
   #const URL = 'http://www.digra.org:8080/Plone/shared/game-research-map/';
-  const URL = 'http://www.digarec.org/gamesresearchmap/doku.php?id=start:gamesresearchmap';
+  const JOURNALS_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdDkzdkZkMm9BUkNkV291TlZwOWFBT0E&single=true&gid=0&output=csv';
+  const POSITIONS_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdHp3WVhLZTRNb1ZqOUZGZDZ6N0d0akE&single=true&gid=0&output=csv';
+  #const URL = 'http://www.digarec.org/gamesresearchmap/doku.php?id=start:gamesresearchmap';
   const VERSION = '1.0.0-DEV';
 
   private function getCacheDir() {
@@ -21,26 +23,206 @@ class Digra {
     return $realCacheDir;
   }
 
-  public function fetchResearchPositions() {
+  public function fetchJournals() {
+    // Is there a cached file?
+    $cacheDir = $this->getCacheDir();
+    $cachedJson = $cacheDir . '/journals.json';
+    if(file_exists($cachedJson)) {
+      // How old is the cached file?
+      $cachedResults = json_decode(file_get_contents($cachedJson));
+      if(($cachedResults->date + 60*60) >= time()) {
+        return $cachedResults;
+      }
+    }
+
+    // Get (read: scrape) HTML from source and write to file
+    $response = file_get_contents(self::JOURNALS_URL);
+    #$response = file_get_contents($cacheDir . '/journals.csv');
+    if($response === false) {
+      throw new \RuntimeException('Failed to retrieve CSV response from server.');
+    }
+    $filename = $cacheDir . '/journals.csv';
+    if(false === file_put_contents($filename, $response)) {
+      throw new \RuntimeException('Failed to write CSV response to file.');
+    }
+
+    return $this->parseJournalsCsv($response);
+  }
+
+  public function fetchPositions() {
     // Is there a cached file?
     $cacheDir = $this->getCacheDir();
     $cachedJson = $cacheDir . '/positions.json';
     if(file_exists($cachedJson)) {
       // How old is the cached file?
       $cachedResults = json_decode(file_get_contents($cachedJson));
-      if(($cachedResults->date + 60*60*24) >= time()) {
+      if(($cachedResults->date + 60*60) >= time()) {
         return $cachedResults;
       }
     }
 
     // Get (read: scrape) HTML from source and write to file
-    $response = file_get_contents(self::URL);
-    $filename = $cacheDir . '/positions.raw.html';
+    $response = file_get_contents(self::POSITIONS_URL);
+    if($response === false) {
+      throw new \RuntimeException('Failed to retrieve CSV response from server.');
+    }
+    $filename = $cacheDir . '/positions.csv';
     if(false === file_put_contents($filename, $response)) {
-      throw new \RuntimeException('Failed to write raw HTML response to file.');
+      throw new \RuntimeException('Failed to write CSV response to file.');
     }
 
-    return $this->parseResearchPositionsHtml($response);
+    return $this->parsePositionsCsv($response);
+  }
+
+  private function parseJournalsCsv($csv = false) {
+    if(!$csv) {
+      throw new \InvalidArgumentException('$csv argument must contain a value.');
+    }
+
+    // Split string into lines
+    $rows = explode("\n", trim($csv));
+    array_shift($rows);
+
+    // Map column headers to JSON keys
+    $headers = array(
+      'journal'                 => 'Journal',
+      'homepage'                => 'Homepage',
+      'discipline'              => 'Discipline',
+      'h5Index'                 => 'H5-Index',
+      'h5Median'                => 'H5-Median',
+      'impactFactor'            => 'Impact Factor',
+      'publisher'               => 'Publisher',
+      'publisherHomepage'       => 'Publisher Homepage',
+      'frequency'               => 'Frequency (pubs/yr)',
+      'journalReviewerUrl'      => 'Journal Reviewer Profile',
+      'wordLimit'               => 'Word Limit',
+      'briefWordLimit'          => 'Brief Word Limit',
+      'issn'                    => 'ISSN',
+      'eissn'                   => 'eISSN',
+      'submissionGuidelinesUrl' => 'Submission Guidelines URL'
+    );
+    $keys = array_keys($headers);
+
+    $data = array_map(function ($row) use ($keys) {
+      return array_combine($keys, str_getcsv($row));
+    }, $rows);
+
+    // Filter data
+    for($i = 0; $i < count($data); ++$i) {
+      foreach($data[$i] as $key => $value) {
+        $data[$i][$key] = trim($value);
+      }
+
+      // Relocate detail fields
+      $data[$i]['details'] = array(
+        'issn'                    => $data[$i]['issn'],
+        'eissn'                   => $data[$i]['eissn'],
+        'h5Index'                 => $data[$i]['h5Index'],
+        'h5Median'                => $data[$i]['h5Median'],
+        'impactFactor'            => $data[$i]['impactFactor'],
+        'wordLimit'               => $data[$i]['wordLimit'],
+        'briefWordLimit'          => $data[$i]['briefWordLimit'],
+        'journalReviewerUrl'      => $data[$i]['journalReviewerUrl'],
+        'submissionGuidelinesUrl' => $data[$i]['submissionGuidelinesUrl'],
+      );
+      unset($data[$i]['issn']);
+      unset($data[$i]['eissn']);
+      unset($data[$i]['h5Index']);
+      unset($data[$i]['h5Median']);
+      unset($data[$i]['impactFactor']);
+      unset($data[$i]['wordLimit']);
+      unset($data[$i]['briefWordLimit']);
+      unset($data[$i]['journalReviewerUrl']);
+      unset($data[$i]['submissionGuidelinesUrl']);
+    }
+    // Remove column headers (i.e., JSON keys) for detail fields
+    unset($headers['homepage']);
+    unset($headers['publisherHomepage']);
+    unset($headers['issn']);
+    unset($headers['eissn']);
+    unset($headers['h5Index']);
+    unset($headers['h5Median']);
+    unset($headers['impactFactor']);
+    unset($headers['wordLimit']);
+    unset($headers['briefWordLimit']);
+    unset($headers['journalReviewerUrl']);
+    unset($headers['submissionGuidelinesUrl']);
+
+    // Return result as array, ready to be JSON encoded
+    $results = array('date' => time(), 'headers' => $headers, 'data' => $data);
+
+    // Write JSON-encoded results to file
+    $cacheDir = $this->getCacheDir();
+    $filename = $cacheDir . '/journals.json';
+    if(false === file_put_contents($filename, json_encode($results))) {
+      throw new \RuntimeException('Failed to write JSON-encoded results to file.');
+    }
+
+    return $results;
+  }
+
+  private function parsePositionsCsv($csv = false) {
+    if(!$csv) {
+      throw new \InvalidArgumentException('$csv argument must contain a value.');
+    }
+
+    // Split string into lines
+    $rows = explode("\n", trim($csv));
+    array_shift($rows);
+
+    // Map column headers to JSON keys
+    $headers = array(
+      'continent'  => 'Continent',
+      'country'    => 'Country',
+      'university' => 'University/Research Center/Network',
+      'department' => 'Department/Faculty/School',
+      'group'      => 'Research Group/Lab',
+      'program'    => 'Degree Program(s)',
+      'contact'    => 'Contact Person',
+      'link'       => 'Link',
+      'focus'      => 'Focus/Specialization'
+    );
+    $keys = array_keys($headers);
+
+    $data = array_map(function ($row) use ($keys) {
+      return array_combine($keys, str_getcsv($row));
+    }, $rows);
+
+    // Filter data
+    for($i = 0; $i < count($data); ++$i) {
+      foreach($data[$i] as $key => $value) {
+        $data[$i][$key] = trim($value);
+      }
+
+      // Relocate detail fields
+      $data[$i]['details'] = array(
+        'group'   => $data[$i]['group'],
+        'contact' => $data[$i]['contact'],
+        'link'    => $data[$i]['link'],
+        'focus'   => $data[$i]['focus']
+      );
+      unset($data[$i]['group']);
+      unset($data[$i]['contact']);
+      unset($data[$i]['link']);
+      unset($data[$i]['focus']);
+    }
+    // Remove column headers (i.e., JSON keys) for detail fields
+    unset($headers['group']);
+    unset($headers['contact']);
+    unset($headers['link']);
+    unset($headers['focus']);
+
+    // Return result as array, ready to be JSON encoded
+    $results = array('date' => time(), 'headers' => $headers, 'data' => $data);
+
+    // Write JSON-encoded results to file
+    $cacheDir = $this->getCacheDir();
+    $filename = $cacheDir . '/positions.json';
+    if(false === file_put_contents($filename, json_encode($results))) {
+      throw new \RuntimeException('Failed to write JSON-encoded results to file.');
+    }
+
+    return $results;
   }
 
   private function parseResearchPositionsHtml($html = false) {
@@ -172,7 +354,7 @@ class Digra {
 
     // Write JSON-encoded results to file
     $filename = $cacheDir . '/positions.json';
-    if(false === file_put_contents($filename . '', json_encode($results))) {
+    if(false === file_put_contents($filename, json_encode($results))) {
       throw new \RuntimeException('Failed to write JSON-encoded results to file.');
     }
 

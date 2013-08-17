@@ -1,7 +1,7 @@
 
 @import "jquery/searchPolyfill";
 
-table.games-research-map {
+table.games-research {
   margin-bottom: 1em;
   border: 1px solid #ccc;
   @include border-radius(4px);
@@ -20,6 +20,11 @@ table.games-research-map {
   td.details {
     th {
       text-align: right;
+    }
+
+    td.spacer {
+      padding-left: 5em;
+      border: none;
     }
 
     tr:first-child td {
@@ -53,4 +58,8 @@ p.hint {
     font-weight: bold;
     font-style: oblique;
   }
+}
+
+#DataTables_Table_0_paginate {
+  margin-right: 1em;
 }
