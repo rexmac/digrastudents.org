@@ -10,7 +10,7 @@ CONFIG = YAML.load_file("_config.yml")
 dest_dir   = CONFIG['destination'] || "_site"
 src_dir = CONFIG['source'] || "."
 js_cache_dir = ".js-cache"
-rsync_params = "-cvzr --delete #{dest_dir}/ #{CONFIG['rsync']['user']}@#{CONFIG['rsync']['host']}:#{CONFIG['rsync']['path']}"
+rsync_params = "-cvzr #{dest_dir}/ #{CONFIG['rsync']['user']}@#{CONFIG['rsync']['host']}:#{CONFIG['rsync']['path']}"
 
 def ask(message, valid_options)
   if valid_options

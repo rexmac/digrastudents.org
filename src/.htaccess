@@ -3,6 +3,7 @@
   <FilesMatch "\.(appcache|crx|css|eot|gif|htc|ico|jpe?g|js|m4a|m4v|manifest|mp4|oex|oga|ogg|ogv|otf|pdf|png|safariextz|svg|svgz|ttf|vcf|webm|webp|woff|xml|xpi)$">
     Header unset X-UA-Compatible
   </FilesMatch>
+  Header set X-Powered-By "Dead Koopas"
   Header set X-L "If you're reading this, congratulations, you are not illiterate!"
 </IfModule>
 
