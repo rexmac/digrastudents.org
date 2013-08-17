@@ -28,7 +28,7 @@ class Digra {
     if(file_exists($cachedJson)) {
       // How old is the cached file?
       $cachedResults = json_decode(file_get_contents($cachedJson));
-      if($cachedResults->date <= (time() + 60*60*24)) {
+      if(($cachedResults->date + 60*60*24) >= time()) {
         return $cachedResults;
       }
     }
