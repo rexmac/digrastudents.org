@@ -8,11 +8,32 @@ namespace Rexmac\Digra;
 class Digra {
 
   #const URL = 'http://www.digra.org:8080/Plone/shared/game-research-map/';
+  const ACADEMICS_ON_TWITTER_URL = 'https://docs.google.com/spreadsheet/pub?key=0Am04dkUpi5bOdHFiWDU2MmNuTjFTRUowazNIY2FGX3c&single=true&gid=0&output=csv';
   const JOURNALS_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdDkzdkZkMm9BUkNkV291TlZwOWFBT0E&single=true&gid=0&output=csv';
   const POSITIONS_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdHp3WVhLZTRNb1ZqOUZGZDZ6N0d0akE&single=true&gid=0&output=csv';
   #const URL = 'http://www.digarec.org/gamesresearchmap/doku.php?id=start:gamesresearchmap';
-  const VERSION = '1.0.0-DEV';
+  const VERSION = '1.1.0-DEV';
 
+  private static $contentMap = array(
+    'academicsOnTwitter' => array(
+      'url'       => self::ACADEMICS_ON_TWITTER_URL,
+      'cacheFile' => 'academicsOnTwitter.json'
+    ),
+    'journals'  => array(
+      'url' => self::JOURNALS_URL,
+      'cacheFile' => 'journals.json'
+    ),
+    'positions' => array(
+      'url' => self::POSITIONS_URL,
+      'cacheFile' => 'positions.json'
+    )
+  );
+
+  /**
+   * Get path to cache directory
+   *
+   * @return string
+   */
   private function getCacheDir() {
     $cacheDir = (defined('APPLICATION_PATH') ? APPLICATION_PATH . '/../' : '') . './cache';
     $realCacheDir = realpath($cacheDir);
@@ -23,57 +44,119 @@ class Digra {
     return $realCacheDir;
   }
 
-  public function fetchJournals() {
-    // Is there a cached file?
-    $cacheDir = $this->getCacheDir();
-    $cachedJson = $cacheDir . '/journals.json';
-    if(file_exists($cachedJson)) {
-      // How old is the cached file?
-      $cachedResults = json_decode(file_get_contents($cachedJson));
-      if(($cachedResults->date + 60*60) >= time()) {
-        return $cachedResults;
+  /**
+   * Fetch content
+   *
+   * @param string $type Type of content (@see self::$contentMap)
+   * @return 
+   * @throws RuntimeException If $type is not a valid content type
+   */
+  public function fetchContent($type = false) {
+    if(array_key_exists($type, self::$contentMap) && is_array(self::$contentMap[$type]) && !empty(self::$contentMap[$type])) {
+      // Is there a cached file?
+      $cacheDir = $this->getCacheDir();
+      $cachedJson = $cacheDir . '/' . $type . '.json';
+      if(file_exists($cachedJson)) {
+        // How old is the cached file?
+        $cachedResults = json_decode(file_get_contents($cachedJson));
+        if(($cachedResults->date + 60*60) >= time()) {
+          return $cachedResults;
+        }
+      }
+
+      // Get (read: scrape) HTML from source and write to file
+      $response = file_get_contents(self::$contentMap[$type]['url']);
+      if($response === false) {
+        throw new \RuntimeException('Failed to retrieve CSV response from server.');
+      }
+      $filename = $cacheDir . '/' . $type . '.csv';
+      if(false === file_put_contents($filename, $response)) {
+        throw new \RuntimeException('Failed to write CSV response to file.');
+      }
+
+      return $this->parseContentCsv($type, $response);
+    }
+
+    throw new \RuntimeException("Content type, $type, is not a valid content type.");
+  }
+
+  /**
+   * Parse content CSV, cache JSON results, and return array of results ready for JSON encoding
+   *
+   * @param string $type Type of content (@see self::$contentMap)
+   * @param string $response CSV response from self::fetchContent
+   * @return array Parsed content as array, ready to be JSON encoded; e.g., array('date' => time(), 'headers' => $headers, 'data' => $data);
+   * @throws RuntimeException If $type is not a valid content type
+   */
+  private function parseContentCsv($type = false, $response = '') {
+    if(array_key_exists($type, self::$contentMap) && is_array(self::$contentMap[$type]) && !empty(self::$contentMap[$type])) {
+      $parseMethodName = 'parse' . ucfirst($type) . 'Csv';
+      if(method_exists($this, $parseMethodName)) {
+        $results = call_user_func(array($this, $parseMethodName), $response);
+
+        // Write JSON-encoded results to file
+        $cacheDir = $this->getCacheDir();
+        $filename = $cacheDir . '/' . $type . '.json';
+        if(false === file_put_contents($filename, json_encode($results))) {
+          throw new \RuntimeException('Failed to write JSON-encoded results to file.');
+        }
+
+        return $results;
       }
     }
 
-    // Get (read: scrape) HTML from source and write to file
-    $response = file_get_contents(self::JOURNALS_URL);
-    #$response = file_get_contents($cacheDir . '/journals.csv');
-    if($response === false) {
-      throw new \RuntimeException('Failed to retrieve CSV response from server.');
-    }
-    $filename = $cacheDir . '/journals.csv';
-    if(false === file_put_contents($filename, $response)) {
-      throw new \RuntimeException('Failed to write CSV response to file.');
-    }
-
-    return $this->parseJournalsCsv($response);
+    throw new \RuntimeException("Content type, $type, is not a valid content type.");
   }
 
-  public function fetchPositions() {
-    // Is there a cached file?
-    $cacheDir = $this->getCacheDir();
-    $cachedJson = $cacheDir . '/positions.json';
-    if(file_exists($cachedJson)) {
-      // How old is the cached file?
-      $cachedResults = json_decode(file_get_contents($cachedJson));
-      if(($cachedResults->date + 60*60) >= time()) {
-        return $cachedResults;
-      }
+  /**
+   * Parse academics-on-twitter CSV and return array of results ready for JSON encoding
+   *
+   * @param string $csv CSV data to be parsed
+   * @return array Parsed content as array, ready to be JSON encoded; e.g., array('date' => time(), 'headers' => $headers, 'data' => $data);
+   * @throws InvalidArgumentException If $csv does not contain a value
+   * @throws RuntimeException Upon failure to write JSON-encoded results to file.
+   */
+  private function parseAcademicsOnTwitterCsv($csv = false) {
+    if(!$csv) {
+      throw new \InvalidArgumentException('$csv argument must contain a value.');
     }
 
-    // Get (read: scrape) HTML from source and write to file
-    $response = file_get_contents(self::POSITIONS_URL);
-    if($response === false) {
-      throw new \RuntimeException('Failed to retrieve CSV response from server.');
-    }
-    $filename = $cacheDir . '/positions.csv';
-    if(false === file_put_contents($filename, $response)) {
-      throw new \RuntimeException('Failed to write CSV response to file.');
-    }
+    // Split string into lines
+    $rows = explode("\n", trim($csv));
+    array_shift($rows);
+    array_shift($rows);
+    array_shift($rows);
+    array_shift($rows);
 
-    return $this->parsePositionsCsv($response);
+    // Map column headers to JSON keys
+    $headers = array(
+      'name'         => 'Name',
+      'twitter'      => 'Twitter',
+      'affiliations' => 'Affiliation(s)',
+      'website'      => 'Website',
+      'notes'        => 'Notes, Specializations'
+    );
+    $keys = array_keys($headers);
+
+    $data = array_map(function ($row) use ($keys) {
+      return array_combine($keys, str_getcsv($row));
+    }, $rows);
+
+    // Remove column headers (i.e., JSON keys) for detail fields
+    unset($headers['notes']);
+
+    // Return result as array, ready to be JSON encoded
+    return array('date' => time(), 'headers' => $headers, 'data' => $data);
   }
 
+  /**
+   * Parse journals CSV and return array of results ready for JSON encoding
+   *
+   * @param string $csv CSV data to be parsed
+   * @return array Parsed content as array, ready to be JSON encoded; e.g., array('date' => time(), 'headers' => $headers, 'data' => $data);
+   * @throws InvalidArgumentException If $csv does not contain a value
+   * @throws RuntimeException Upon failure to write JSON-encoded results to file.
+   */
   private function parseJournalsCsv($csv = false) {
     if(!$csv) {
       throw new \InvalidArgumentException('$csv argument must contain a value.');
@@ -149,18 +232,17 @@ class Digra {
     unset($headers['submissionGuidelinesUrl']);
 
     // Return result as array, ready to be JSON encoded
-    $results = array('date' => time(), 'headers' => $headers, 'data' => $data);
-
-    // Write JSON-encoded results to file
-    $cacheDir = $this->getCacheDir();
-    $filename = $cacheDir . '/journals.json';
-    if(false === file_put_contents($filename, json_encode($results))) {
-      throw new \RuntimeException('Failed to write JSON-encoded results to file.');
-    }
-
-    return $results;
+    return array('date' => time(), 'headers' => $headers, 'data' => $data);
   }
 
+  /**
+   * Parse positions CSV, cache JSON results, and return array of results ready for JSON encoding
+   *
+   * @param string $csv CSV data to be parsed
+   * @return array Parsed content as array, ready to be JSON encoded; e.g., array('date' => time(), 'headers' => $headers, 'data' => $data);
+   * @throws InvalidArgumentException If $csv does not contain a value
+   * @throws RuntimeException Upon failure to write JSON-encoded results to file.
+   */
   private function parsePositionsCsv($csv = false) {
     if(!$csv) {
       throw new \InvalidArgumentException('$csv argument must contain a value.');
@@ -213,18 +295,14 @@ class Digra {
     unset($headers['focus']);
 
     // Return result as array, ready to be JSON encoded
-    $results = array('date' => time(), 'headers' => $headers, 'data' => $data);
-
-    // Write JSON-encoded results to file
-    $cacheDir = $this->getCacheDir();
-    $filename = $cacheDir . '/positions.json';
-    if(false === file_put_contents($filename, json_encode($results))) {
-      throw new \RuntimeException('Failed to write JSON-encoded results to file.');
-    }
-
-    return $results;
+    return array('date' => time(), 'headers' => $headers, 'data' => $data);
   }
 
+  /**
+   * ????
+   *
+   * @param string $html HTML to be parsed
+   */
   private function parseResearchPositionsHtml($html = false) {
     if(!$html) {
       throw new \InvalidArgumentException('$html argument must contain a value.');
@@ -361,6 +439,7 @@ class Digra {
     return $results;
   }
 
+  /*
   private function csvToJson($csv, $keys = array()) {
     $rows = explode("\n", trim($csv));
     if(!is_array($keys) || empty($keys)) {
@@ -372,5 +451,5 @@ class Digra {
     $json = json_encode($csvArray);
 
     return $json;
-  }
+  }*/
 }

@@ -207,6 +207,7 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [QSA,L]
 
 # Rewrite games-research/<actions> to zfapp.php
+RewriteRule ^games-research\/twitter zfapp.php [NC,L]
 RewriteRule ^games-research\/journals zfapp.php [NC,L]
 RewriteRule ^games-research\/positions zfapp.php [NC,L]
 

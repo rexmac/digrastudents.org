@@ -56,8 +56,14 @@ js: [
     "libs/jquery.searchPolyfill.js",
     "_games-research-positions.js"
   ],
+  "games-research-twitter.min.js": [
+    "libs/jquery.dataTables.js",
+    "libs/jquery.searchPolyfill.js",
+    "_games-research-twitter.js"
+  ],
   "site.min.js": [
     "libs/sprintf.min.js",
+    "libs/ba-linkify.min.js",
     "libs/bootstrap-transition.js",
     "libs/bootstrap-collapse.js",
     "libs/bootstrap-tooltip.js",

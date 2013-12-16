@@ -20,6 +20,7 @@ class GamesResearchController extends \Zend_Controller_Action {
     $this->_helper->getHelper('AjaxContext')
       ->addActionContext('journals', 'json')
       ->addActionContext('positions', 'json')
+      ->addActionContext('twitter', 'json')
       ->initContext();
   }
 
@@ -46,7 +47,7 @@ class GamesResearchController extends \Zend_Controller_Action {
     $this->_helper->viewRenderer->setNoRender();
 
     $digra = new Digra();
-    $data = $digra->fetchJournals();
+    $data = $digra->fetchContent('journals');
     echo Zend_Json::encode($data);
   }
 
@@ -64,11 +65,30 @@ class GamesResearchController extends \Zend_Controller_Action {
     $this->_helper->viewRenderer->setNoRender();
 
     $digra = new Digra();
-    $data = $digra->fetchPositions();
+    $data = $digra->fetchContent('positions');
     echo Zend_Json::encode($data);
 
     #$cacheDir = (defined('APPLICATION_PATH') ? APPLICATION_PATH . '/../' : '') . './cache';
     #$data = file_get_contents($cacheDir . '/grm.json');
     #echo $data;
   }
+
+  /**
+   * Twitter action
+   *
+   * @return void
+   */
+  public function twitterAction() {
+    // Force JSON context and disable auto-serialization
+    $this->_helper->getHelper('AjaxContext')->setAutoJsonSerialization(false)->initcontext('json');
+
+    // Disable layout and view
+    $this->_helper->layout->disableLayout();
+    $this->_helper->viewRenderer->setNoRender();
+
+    $digra = new Digra();
+    $data = $digra->fetchContent('academicsOnTwitter');
+    echo Zend_Json::encode($data);
+  }
+
 }
