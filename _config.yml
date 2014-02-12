@@ -22,6 +22,7 @@ rsync:
 #             Blog Settings             #
 #---------------------------------------#
 paginate: 10                            # Posts per page on the blog index
+paginate_path: "blog/page:num"
 pagination_dir: blog                    # Directory base for pagination URLs, e.g., /blog/page/2/
 permalink: /blog/:title                 # URL structure for blog posts
 recent_posts: 5                         # Posts in the sidebar Recent Posts section
@@ -36,6 +37,7 @@ source: src
 destination: public
 pygments: true
 markdown: kramdown
+relative_permalinks: true
 
 #-----------------------------#
 #       Build Settings        #
@@ -43,7 +45,7 @@ markdown: kramdown
 include: [".htaccess"]
 exclude: [
   "resolutionizr.html",
-  "sass"
+  "scss"
 ]
 js: [
   "games-research-articles.min.js": [

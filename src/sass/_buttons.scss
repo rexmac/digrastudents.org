@@ -1,9 +1,0 @@
-/* =============================================================================
-   Buttons
-   ========================================================================== */
-.btn-primary {
-  .lightsoff & {
-    //@include buttonBackground($lightsoffLinkColor, $lightsoffLinkColorHover);
-    @include buttonBackground(#08f, #05f);
-  }
-}

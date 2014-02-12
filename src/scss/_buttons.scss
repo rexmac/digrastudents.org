@@ -1,0 +1,100 @@
+/* =============================================================================
+   Buttons
+   ========================================================================== */
+.btn-primary {
+  .lightsoff & {
+    //@include buttonBackground($lightsoffLinkColor, $lightsoffLinkColorHover);
+    @include buttonBackground(#08f, #05f);
+  }
+}
+
+@mixin button($size: 'small', $color: 'plain') {
+  position: relative;
+  display: block;
+  //width: 179px;
+  float: left;
+  color: #303030;
+  font-size: 15px;
+  line-height: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  //padding: 12px 8px;
+  padding: 12px;
+  margin: 0 14px 1em 0;
+  border: 1px solid #b7b7b7;
+  border-top-color: #cbcbcb;
+  border-bottom-color: #b3b3b3;
+  @include border-radius(30px);
+  @include gradient-vertical(#fdfdfd, #f2f2f2);
+  @include box-shadow(0px 1px 5px #e8e8e8);
+
+  &:hover {
+    border-color: #b7b7b7 #b3b3b3 #b3b3b3 #b3b3b3;
+    @include gradient-vertical(#fdfdfd, #f6f6f6);
+  }
+
+  .lightsoff & {
+    color: #cfcfcf;
+    border: 1px solid #303030;
+    border-top-color: #444444;
+    border-bottom-color: #2c2c2c;
+    @include gradient-vertical(#333333, #222222);
+    @include box-shadow(0px 1px 5px invert(#e8e8e8));
+
+    &:visited {
+      color: #cfcfcf;
+    }
+    &:hover {
+      border-color: #444444 #2c2c2c #2c2c2c #2c2c2c;
+      @include gradient-vertical(#444444, #333333);
+    }
+  }
+}
+.button {
+  @include button;
+  $icon-spacing: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &.github,
+  &.pbw,
+  &.tar-gz,
+  &.zip {
+    &:before {
+      content: '';
+      position: absolute;
+      display: inline-block;
+      top: 50%;
+      left: 12px;
+    }
+  }
+
+  &.github {
+    padding-left: icons-sprite-width('octocat') + $icon-spacing;
+
+    &:before {
+      @include show-icon-sprite('octocat');
+      margin-top: -(icons-sprite-height('octocat') / 2);
+    }
+  }
+
+  &.tar-gz {
+    padding-left: icons-sprite-width('tar-gz') + $icon-spacing;
+
+    &:before {
+      @include show-icon-sprite('tar-gz');
+      margin-top: -(icons-sprite-height('tar-gz') / 2);
+    }
+  }
+
+  &.zip {
+    padding-left: icons-sprite-width('zip') + $icon-spacing;
+
+    &:before {
+      @include show-icon-sprite('zip');
+      margin-top: -(icons-sprite-height('zip') / 2);
+    }
+  }
+}

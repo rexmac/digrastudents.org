@@ -6,7 +6,7 @@
 #
 
 module Jekyll
-  class MarkdownConverter
+  class Converters::Markdown
     alias :old_convert :convert
     @@abbr_dict = nil
 

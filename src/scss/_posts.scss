@@ -20,6 +20,41 @@
   .next-prev-nav { text-align: center; }
 }
 
+.pagination {
+  text-align: center;
+
+  .page-number {
+    &:before, &:after {
+      content: '|';
+      padding: 0 0.5em;
+    }
+  }
+
+  > a:hover { text-decoration: none; }
+
+  .next {
+    float: right;
+
+    &:after {
+      content: '»';
+      padding-left: 0.5em;
+    }
+  }
+  .prev {
+    float: left;
+
+    &:before {
+      content: '«';
+      padding-right: 0.5em;
+    }
+  }
+
+  span.next,
+  span.prev {
+    @include opacity(.3);
+  }
+}
+
 .page-header {
   position: relative;
   padding: 0;

@@ -193,6 +193,7 @@ RewriteRule ^(.*)$ blog/$1 [QSA,L]
 
 # Redirect all sub-domains (except those handled above) to digrastudents.org
 RewriteCond %{HTTP_HOST} !^(dev\.)?digrastudents\.org(:80)?$ [NC]
+RewriteCond %{HTTP_HOST} !^digrastudents\.dev(:80)?$ [NC]
 RewriteRule ^(.*)$ http://digrastudents.org/$1 [QSA,L]
 
 # Cache-busting URLs

@@ -1,0 +1,24 @@
+$icons-spacing: 2px;
+
+@import "compass/utilities/sprites";
+@import "icons/*.png";
+
+@mixin ir {
+  overflow: hidden;
+  text-indent: -32000em;
+  white-space: nowrap;
+
+  .ie7 & {
+    font-size: 1px;
+    line-height: 1px;
+  }
+}
+.ir { @include ir; }
+
+@mixin show-icon-sprite($name) {
+  @include ir;
+  @include icons-sprite($name);
+  width: icons-sprite-width($name);
+  height: icons-sprite-height($name);
+}
+

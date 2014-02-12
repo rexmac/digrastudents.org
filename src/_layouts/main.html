@@ -6,15 +6,19 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <title>{% if page.title %}{{ page.title | escape_attr }} - {% endif %}{{ site.title | escape_attr }}</title>
   <meta name="author" content="{{ site.author.name }}" />
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
+  <meta name="description" content="{% if page.description %}{{ page.description | escape_attr }}{% else %}{{ site.description | escape_attr }}{% endif %}" />
   <meta name="viewport" content="width=device-width" />
+  {% include opengraph.html %}
   <link rel="stylesheet" href="{{ '/css/site.css' | cachebust_url }}" />
   {% if page.css %}{% for css in page.css %}
   <link rel="stylesheet" href="{{ css | cachebust_url }}" />
   {% endfor %}{% endif %}
   <script src="/js/libs/modernizr-2.6.2.min.js"></script>
+
+  {% include analytics %}
+
 </head>
 <body{% if page.body_id %} id="{{ page.body_id }}"{% endif %}{% if page.body_class %} class="{{ page.body_class }}"{% endif %}>
 
@@ -32,8 +36,6 @@
   {% if page.js %}{% for js in page.js %}
   <script src="{{ js | cachebust_url }}"></script>
   {% endfor %}{% endif %}
-
-  {% include analytics %}
 
   <!-- Whatchya lookin' at Willis?! -->
 </body>

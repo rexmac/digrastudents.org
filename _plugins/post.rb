@@ -9,8 +9,9 @@ module Jekyll
     # Convert this post into a Hash for use in Liquid templates.
     #
     # Returns <Hash>
-    def to_liquid
-      self.data.deep_merge({
+    alias_method :original_to_liquid, :to_liquid
+    def to_liquid(attrs = nil)
+      original_to_liquid(attrs).deep_merge({
         "title"      => self.data["title"] || self.slug.split('-').select {|w| w.capitalize! || w }.join(' '),
         "url"        => self.url,
         "full_url"   => (site.config['url'] + self.url).gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "/"),
@@ -20,8 +21,15 @@ module Jekyll
         "next"       => self.next,
         "previous"   => self.previous,
         "tags"       => self.tags,
-        "content"    => self.content
+        "content"    => self.content,
+        "excerpt"    => content.match('<!--more-->') ? content.split('<!--more-->').first : nil
       })
+    end
+  end
+
+  module Filters
+    def mark_excerpt(content)
+      content.gsub('<!--more-->', '<a name="more" class="readmore-anchor">&nbsp;</a>')
     end
   end
 end

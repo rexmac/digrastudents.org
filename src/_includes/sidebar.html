@@ -1,7 +1,7 @@
 <div id="sidebar" class="span4"><div class="sidebar-inner">
 
   <div class="sidebar-module social-media-icons">
-    <h3><i class="icon-group"></i><span>Stay Connected</span></h3>
+    <h3><i class="fa fa-group"></i><span>Stay Connected</span></h3>
     <a class="ir facebook" href="http://facebook.com/{{ site.author.facebook }}" title="Join our Facebook Community">Join our Facebook Community</a>
     <a class="ir twitter" href="http://twitter.com/{{ site.author.twitter }}" title="Follow us on Twitter">Follow us on Twitter</a>
     <a class="ir steam" href="http://steamcommunity.com/groups/digrastudents" title="Join our Steam group">Join our Steam group</a>
@@ -10,7 +10,7 @@
   </div>
 
   <div class="sidebar-module external-links">
-    <h3><i class="icon-link"></i><span>Links</span></h3>
+    <h3><i class="fa fa-link"></i><span>Links</span></h3>
     <ul>
       <li><a href="{{ site.url }}/games-research-journals/">Games Research Journals</a></li>
       <li><a href="{{ site.url }}/games-research-positions/">Games Research Positions</a></li>
@@ -23,23 +23,23 @@
   </div>
 
   <div class="sidebar-module latest-posts">
-    <h3><i class="icon-time"></i><span>Latest Posts</span></h3>{% for post in site.posts limit: 5 %}
+    <h3><i class="fa fa-time"></i><span>Latest Posts</span></h3>{% for post in site.posts limit: 5 %}
     <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
     <h6>{{ post.date | format_date }}</h6>
   {% endfor %}</div>
 
   <div class="sidebar-module tag-cloud">
-    <h3><i class="icon-tags"></i><span>Tag Cloud</span></h3>
+    <h3><i class="fa fa-tags"></i><span>Tag Cloud</span></h3>
     {% tag_cloud %}
   </div>
 
   <div class="sidebar-module categories">
-    <h3><i class="icon-list"></i><span>Categories</span></h3>
+    <h3><i class="fa fa-list"></i><span>Categories</span></h3>
     {% category_list %}
   </div>
 
   <div class="sidebar-module archives">
-    <h3><i class="icon-briefcase"></i><span>Archives</span></h3>
+    <h3><i class="fa fa-briefcase"></i><span>Archives</span></h3>
     {% monthly_archives %}
   </div>
 

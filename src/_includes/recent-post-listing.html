@@ -1,0 +1,13 @@
+{% for post in posts limit: listing_limit %}
+  <h3 class="no-bottom"><a href="{{ post.full_url }}">{{ post.title }}</a></h3>
+  <h5 class="no-top">
+    Posted on {{ post.date | format_date }}
+    {% unless no_category %}
+      {% if post.category %}
+        in <a href="/{{ site.category_dir }}/{{ post.category | slugize }}">{{ post.category }}</a>
+      {% endif %}
+    {% endunless %}
+  </h5>
+
+  {{ post.content | postmorefilter: post.full_url, "Continue reading »", 75 }}
+{% endfor %}

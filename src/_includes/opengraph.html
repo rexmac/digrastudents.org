@@ -1,0 +1,3 @@
+  <meta property="og:title" content="{% if page.title %}{{ page.title | escape_once }} - {% endif %}{{ site.title }}">
+  <meta property="og:description" content="{% if page.description %}{{ page.description | escape_once }}{% else %}{{ site.description | escape_once }}{% endif %}">
+  {% if page.image %}{% opengraph_image page.image %}{% endif %}

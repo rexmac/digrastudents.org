@@ -31,7 +31,7 @@ module Jekyll
     end
   end
 
-  class Tags < CustomPage
+  class Taggs < CustomPage
     def initialize(site, base, dir)
       super site, base, dir, 'tags'
       self.data['tags'] = site.tags.keys.sort
@@ -55,7 +55,7 @@ module Jekyll
 
       # Tags
       dir = self.config['tag_dir'] || 'tags'
-      write_page Tags.new(self, self.source, dir) if self.layouts.key? 'tags'
+      write_page Taggs.new(self, self.source, dir) if self.layouts.key? 'tags'
 
       self.tags.keys.each do |tag|
         write_page Tag.new(self, self.source, File.join(dir, tag.slugize), tag)

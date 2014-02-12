@@ -1,15 +1,31 @@
 /* =============================================================================
    Social Media Icons
    ========================================================================== */
-.social-media-icons {
+.social-media-links {
   //text-align: center;
-  a {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  footer & {
+    margin-bottom: 1em;
+    float: right;
+  }
+
+  li {
+    float: left;
     display: inline-block;
+  }
+
+  a {
+    display: block;
     width: 32px;
     height: 32px;
     margin-right: 0.75em;
     background: image-url('socialmediabadges.32.png') no-repeat 0 0;
-    @include opacity(.5);
+    @include transition(opacity 0.6s ease);
+    @include opacity(0.5);
     &:hover { @include opacity(1); }
     &.facebook { background-position: -224px 0; }
     &.gplus { background-position: -32px 0; }

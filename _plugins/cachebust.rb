@@ -22,6 +22,14 @@ module Jekyll
         input.gsub(/^(.+)\.([^.]+)$/, "\\1.#{Time.now.to_i}.\\2")
       end
     end
+
+    def cachebust_url_via_qs(input)
+      if input.include?('://')
+        input
+      else
+        "#{input}?#{Time.now.to_i}"
+      end
+    end
   end
 end
 

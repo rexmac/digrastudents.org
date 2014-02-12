@@ -63,7 +63,7 @@ module Jekyll
 
     def full_url(input)
       site = @context.registers[:site]
-      (site.config['ur'] + input).gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "")
+      (site.config['url'] + input).gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "/")
     end
 
     def length(obj)
