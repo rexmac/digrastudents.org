@@ -9,6 +9,7 @@ class Digra {
 
   #const URL = 'http://www.digra.org:8080/Plone/shared/game-research-map/';
   const ACADEMICS_ON_TWITTER_URL = 'https://docs.google.com/spreadsheet/pub?key=0Am04dkUpi5bOdHFiWDU2MmNuTjFTRUowazNIY2FGX3c&single=true&gid=0&output=csv';
+  const ARTICLES_URL = 'https://docs.google.com/spreadsheet/pub?key=0AqjgW5ZOmo0kdE8xLUI1RHVyYnQtRmhkZW5HWDh0MXc&single=true&gid=0&output=csv';
   const JOURNALS_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdDkzdkZkMm9BUkNkV291TlZwOWFBT0E&single=true&gid=0&output=csv';
   const POSITIONS_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdHp3WVhLZTRNb1ZqOUZGZDZ6N0d0akE&single=true&gid=0&output=csv';
   #const URL = 'http://www.digarec.org/gamesresearchmap/doku.php?id=start:gamesresearchmap';
@@ -18,6 +19,10 @@ class Digra {
     'academicsOnTwitter' => array(
       'url'       => self::ACADEMICS_ON_TWITTER_URL,
       'cacheFile' => 'academicsOnTwitter.json'
+    ),
+    'articles'  => array(
+      'url' => self::ARTICLES_URL,
+      'cacheFile' => 'atricles.json'
     ),
     'journals'  => array(
       'url' => self::JOURNALS_URL,
@@ -144,6 +149,49 @@ class Digra {
 
     // Remove column headers (i.e., JSON keys) for detail fields
     unset($headers['notes']);
+
+    // Return result as array, ready to be JSON encoded
+    return array('date' => time(), 'headers' => $headers, 'data' => $data);
+  }
+
+  /**
+   * Parse journal articles CSV and return array of results ready for JSON encoding
+   *
+   * @param string $csv CSV data to be parsed
+   * @return array Parsed content as array, ready to be JSON encoded; e.g., array('date' => time(), 'headers' => $headers, 'data' => $data);
+   * @throws InvalidArgumentException If $csv does not contain a value
+   * @throws RuntimeException Upon failure to write JSON-encoded results to file.
+   */
+  private function parseArticlesCsv($csv = false) {
+    if(!$csv) {
+      throw new \InvalidArgumentException('$csv argument must contain a value.');
+    }
+
+    // Split string into lines
+    $rows = explode("\n", trim($csv));
+    array_shift($rows);
+    array_shift($rows);
+    array_shift($rows);
+
+    // Map column headers to JSON keys
+    $headers = array(
+      'category'     => 'Main Category',
+      'sub-category' => 'Sub-Category',
+      'type'         => 'Type',
+      'year'         => 'Year',
+      'authors'      => 'Author(s)',
+      'title'        => 'Title',
+      'publisher'    => 'Publisher',
+      'link'         => 'Link to publication or abstract'
+    );
+    $keys = array_keys($headers);
+
+    $data = array_map(function ($row) use ($keys) {
+      return array_combine($keys, str_getcsv($row));
+    }, $rows);
+
+    // Remove column headers (i.e., JSON keys) for detail fields
+    unset($headers['link']);
 
     // Return result as array, ready to be JSON encoded
     return array('date' => time(), 'headers' => $headers, 'data' => $data);

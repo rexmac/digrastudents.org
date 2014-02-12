@@ -18,6 +18,7 @@ class GamesResearchController extends \Zend_Controller_Action {
   public function init() {
     parent::init();
     $this->_helper->getHelper('AjaxContext')
+      ->addActionContext('articles', 'json')
       ->addActionContext('journals', 'json')
       ->addActionContext('positions', 'json')
       ->addActionContext('twitter', 'json')
@@ -31,6 +32,24 @@ class GamesResearchController extends \Zend_Controller_Action {
    */
   public function indexAction() {
     $this->_forward('positions');
+  }
+
+  /**
+   * Articles action
+   *
+   * @return void
+   */
+  public function articlesAction() {
+    // Force JSON context and disable auto-serialization
+    $this->_helper->getHelper('AjaxContext')->setAutoJsonSerialization(false)->initcontext('json');
+
+    // Disable layout and view
+    $this->_helper->layout->disableLayout();
+    $this->_helper->viewRenderer->setNoRender();
+
+    $digra = new Digra();
+    $data = $digra->fetchContent('articles');
+    echo Zend_Json::encode($data);
   }
 
   /**
