@@ -18,14 +18,15 @@ $(function() {
 
   $.ajax({
     beforeSend: function() {
-      $table.hide().after('<div class="align-content-center"><span class="games-research loading"><i class="icon-spinner icon-spin icon-2x"></i><span>Loading content...</span></span></div>');
+      $table.hide().after('<div class="align-content-center"><span class="games-research loading"><i class="fa fa-spinner fa-spin fa-2x"></i><span>Loading content...</span></span></div>');
     },
     complete: function() {
       $('.games-research.loading').parent().remove();
     },
     success: function(data, textStatus, jqXhr) {
       var aaData = [],
-          $headers = $('<tr/>');
+          $headers = $('<tr/>'),
+          d = new Date(data.date * 1000);
 
       $.each(data.data, function(i, item) {
         aaData.push([
@@ -56,7 +57,19 @@ $(function() {
           'sSearch': '_INPUT_',
           'sZeroRecords': 'No data found'
         },
-        'sDom': 'frtipl'
+        'sDom': 'frtipl',
+        'bLengthChange': false,
+        'bPaginate': false
+      }).rowGrouping({
+        'asExpandedGroups': 'NONE',
+        'iGroupingColumnIndex2': 1,
+        'fnGroupLabelFormat': function(label) { return '' + label + ' (category)'; },
+        'fnGroupLabelFormat2': function(label) { return '' + label + ' (sub-category)'; },
+        'bExpandableGrouping': true,
+        'bExpandableGrouping2': true,
+        'fnOnGrouped': function() {
+          $table.find('.subgroup').trigger('click');
+        }
       }).show();
 
       $('#DataTables_Table_0_filter input').fontAwesomeSearchPolyfill();

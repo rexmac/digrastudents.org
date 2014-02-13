@@ -36,7 +36,7 @@
     float: right;
 
     &:after {
-      content: '»';
+      content: '\x00BB';
       padding-left: 0.5em;
     }
   }
@@ -44,7 +44,7 @@
     float: left;
 
     &:before {
-      content: '«';
+      content: '\x00AB';
       padding-right: 0.5em;
     }
   }

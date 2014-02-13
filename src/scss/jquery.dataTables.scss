@@ -390,3 +390,37 @@ table.dataTable thead td:active {
   height: 0;
 }
 
+/* =============================================================================
+   Row grouping
+   ========================================================================== */
+table.dataTable {
+  td.group {
+    color: #bbb;
+    background: #222;
+    border-color: #333;
+  }
+  td.subgroup {
+    color: #eee;
+    background: #3a87ad;
+    border-color: #59b;
+    padding-left: 3em;
+  }
+  td.collapsed-group:before,
+  td.expanded-group:before {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-right: 1em;
+  }
+  td.collapsed-group:before {
+    //content: '\f0fe';
+    content: '\f196';
+  }
+  td.expanded-group:before {
+    //content: '\f146';
+    content: '\f147';
+  }
+}

@@ -27,7 +27,6 @@ module Jekyll
       self.render
 
       # these must come after render
-      self.generate_tags_categories
       self.generate_archives
       #self.generate_projects
 

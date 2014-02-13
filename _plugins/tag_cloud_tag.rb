@@ -3,7 +3,7 @@
 # Original: https://github.com/BlackBulletIV/blackbulletiv.github.com/blob/master/_plugins/tag_cloud.rb
 #
 module Jekyll
-  class TagCloud < Liquid::Tag
+  class TagCloudTag < Liquid::Tag
     @@max_size = 280
     @@min_size = 75
     safe = true
@@ -56,4 +56,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('tag_cloud', Jekyll::TagCloud)
+Liquid::Template.register_tag('tag_cloud', Jekyll::TagCloudTag)

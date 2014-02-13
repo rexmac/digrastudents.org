@@ -1,7 +1,8 @@
 @import "bootstrap/bootstrap";
 @import "bootstrap/responsive";
 @import "compass";
-@import "font-awesome";
+@import "font-awesome/font-awesome";
+@import "sprites";
 
 $link-color: $linkColor;
 $noise-bg: image-url('noise.png') 0 0 !default;
@@ -79,6 +80,17 @@ hr {
 
 .home-links h2 {
   margin-left: 0.3em;
+}
+
+.loading {
+  display: table;
+  margin: 0 auto;
+
+  > span {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 1em;
+  }
 }
 
 .page {
