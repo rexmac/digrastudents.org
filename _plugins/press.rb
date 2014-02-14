@@ -15,11 +15,13 @@ module Jekyll
     end
 
     def output_html(path, content)
-      #puts "Pressing HTML: " + path
-      content = open('|/usr/bin/perl _plugins/press.pl', 'r+') do |io|
-        io.write(content)
-        io.close_write
-        io.read
+      if !path.include? "feed.xml"
+        #puts "Pressing HTML: " + path
+        content = open('|/usr/bin/perl _plugins/press.pl', 'r+') do |io|
+          io.write(content)
+          io.close_write
+          io.read
+        end
       end
       self.output_file(path, content)
     end
