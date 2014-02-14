@@ -3,7 +3,7 @@
 # Original: https://github.com/BlackBulletIV/blackbulletiv.github.com/blob/master/_plugins/category_list.rb
 #
 module Jekyll
-  class CategoryList < Liquid::Tag
+  class CategoryListTag < Liquid::Tag
     safe = true
 
     def render(context)
@@ -20,4 +20,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('category_list', Jekyll::CategoryList)
+Liquid::Template.register_tag('category_list', Jekyll::CategoryListTag)
