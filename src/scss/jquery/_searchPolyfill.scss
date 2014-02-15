@@ -15,20 +15,20 @@
   color: #bbb;
   font-size: 1.2em;
 }
-.search-input-wrapper .icon-search {
+.search-input-wrapper .fa-search {
   left: 0.4em;
 }
-.search-input-wrapper .icon-remove-sign {
+.search-input-wrapper .clear-icon {
   color: #bbb;
   text-decoration: none;
   right: 0.4em;
 }
-.search-input-wrapper .icon-remove-sign:hover {
+/*.search-input-wrapper .clear-icon:hover {
   color: #999;
 }
-.search-input-wrapper .icon-remove-sign:active {
+.search-input-wrapper .clear-icon:active {
   color: #777;
-}
+}*/
 input[type="search"] {
   position: relative;
   padding: 0.25em 1.75em;
@@ -41,10 +41,14 @@ input[type="search"]:focus {
   outline: none;
 }
 
-.input-prepend {
+.input-prepend.input-search {
   font-size: inherit;
 
-  a.icon-remove-sign {
+  input {
+    padding-right: 2em;
+  }
+
+  a.clear-icon {
     display: block;
     position: absolute;
     z-index: 100;

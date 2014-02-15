@@ -39,7 +39,7 @@
 		}
 
 		// Do the work.
-		$cancel_button = $('<a href="#" class="icon-remove-sign" />').css('display', 'none');
+		$cancel_button = $('<a href="javascript:;" class="clear-icon"><i class="fa fa-times-circle" /></a>').css('display', 'none');
 
 		$cancel_button.on( 'click', function( e ) {
 			e.preventDefault();
@@ -51,9 +51,9 @@
 
 		$el
 			//.wrap('<span class="search-input-wrapper" />')
-			//.before('<i class="icon-search" />')
-			.wrap('<div class="input-prepend" />') // rex: for Twitter Bootstrap support
-			.before('<span class="add-on"><i class="icon-search"></i></span>') // rex: for Twitter Bootstrap support
+			//.before('<i class="fa fa-search" />')
+			.wrap('<div class="input-prepend input-search" />') // rex: for Twitter Bootstrap support
+			.before('<span class="add-on"><i class="fa fa-search"></i></span>') // rex: for Twitter Bootstrap support
 			.after( $cancel_button )
 			.on( 'keyup', function() {
 				// Manage search cancel button

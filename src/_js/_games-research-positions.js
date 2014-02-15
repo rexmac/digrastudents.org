@@ -22,7 +22,7 @@ $(function() {
 
   $.ajax({
     beforeSend: function() {
-      $table.hide().after('<div class="align-content-center"><span class="games-research loading"><i class="icon-spinner icon-spin icon-2x"></i><span>Loading content...</span></span></div>');
+      $table.hide().after('<div class="align-content-center"><span class="games-research loading"><i class="fa fa-spinner fa-spin fa-2x"></i><span>Loading content...</span></span></div>');
     },
     complete: function() {
       $('.games-research.loading').parent().remove();
@@ -34,7 +34,7 @@ $(function() {
 
       $.each(data.data, function(i, item) {
         aaData.push([
-          '<i class="icon-expand-alt"></i>',
+          '<i class="fa fa-expand-alt"></i>',
           item.continent,
           item.country,
           formatData(item.university),
@@ -74,10 +74,10 @@ $(function() {
         e.preventDefault();
         var $tr = $(this).parent();
         if($table.fnIsOpen($tr[0])) {
-          $tr.find('i').removeClass('icon-collapse-alt').addClass('icon-expand-alt');
+          $tr.find('i').removeClass('fa-collapse-alt').addClass('fa-expand-alt');
           $table.fnClose($tr[0]);
         } else {
-          $tr.find('i').removeClass('icon-expand-alt').addClass('icon-collapse-alt');
+          $tr.find('i').removeClass('fa-expand-alt').addClass('fa-collapse-alt');
           $table.fnOpen($tr[0], formatDetails($table, $tr[0]), 'details');
         }
       });
