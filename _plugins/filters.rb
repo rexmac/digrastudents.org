@@ -23,8 +23,9 @@ module OctopressFilters
     if input.nil?
       return input
     end
-    input = unwrap(input)
+    #input = unwrap(input)
     #RubyPants.new(input).to_html
+    input
   end
 end
 
@@ -46,6 +47,10 @@ module Jekyll
   module Filters
     def slugize(text)
       text.slugize
+    end
+
+    def cdata_escpae(input)
+      input.gsub(/<!\[CDATA\[/, '&lt;![CDATA[').gsub(/\]\]>/, ']]&gt;')
     end
 
     def format_date(date)
@@ -72,7 +77,7 @@ module Jekyll
 
     # Improved version of Liquid's truncate:
     # - Doesn't cut in the middle of a word.
-    # - Uses typographically correct ellipsis (…) insted of '...'
+    # - Uses typographically correct ellipsis (…) instead of '...'
     def truncate(input, length)
       if input.length > length && input[0..(length-1)] =~ /(.+)\b.+$/im
         $1.strip + ' &hellip;'
@@ -82,7 +87,7 @@ module Jekyll
     end
 
     # Improved version of Liquid's truncatewords:
-    # - Uses typographically correct ellipsis (…) insted of '...'
+    # - Uses typographically correct ellipsis (…) instead of '...'
     def truncatewords(input, length)
       truncate = input.split(' ')
       if truncate.length > length

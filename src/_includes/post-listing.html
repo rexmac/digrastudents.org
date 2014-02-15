@@ -1,33 +1,21 @@
-{% for post in paginator.posts %}
-  <h3 class="no-bottom"><a href="{{ post.full_url }}">{{ post.title }}</a></h3>
-  <h5 class="no-top">
-    Posted on {{ post.date | format_date }}
-    {% unless no_category %}
-      {% if post.category %}
-        in <a href="/{{ site.category_dir }}/{{ post.category | slugize }}">{{ post.category }}</a>
-      {% endif %}
+{% for post in posts limit: listing_limit %}
+  <div class="post-summary">
+    <h3 class="no-bottom"><a href="{{ post.full_url }}">{{ post.title }}</a></h3>
+    <h5 class="no-top">
+      Posted on {{ post.date | format_date }}
+      {% unless no_category %}
+        {% if post.category %}
+          in <a href="/{{ site.category_dir }}/{{ post.category | slugize }}">{{ post.category }}</a>
+        {% endif %}
+      {% endunless %}
+    </h5>
+
+    {{ post.content | postmorefilter: post.full_url, "Continue reading »", 75 }}
+
+    {% unless no_tags %}
+      {% if post.tags %}{% for tag in post.tags %}{% if forloop.first %}<div class="tags">Tagged with <div class="tags-list">{% endif %}<a href="/tag/{{ tag | slugize }}"><span class="label">{{ tag }}</span></a>{% if forloop.last %}</div></div>{% endif %}{% endfor %}{% endif %}
     {% endunless %}
-  </h5>
+  </div>
 
-  {{ post.content | postmorefilter: post.full_url, "Continue reading »", 75 }}
+  <hr class="unseen" />
 {% endfor %}
-
-{% if paginator.total_pages > 1 %}
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a href="/page{{paginator.next_page}}" class="prev">Older posts</a>
-  {% else %}
-    <span class="prev">Older posts</span>
-  {% endif %}
-
-  {% if paginator.previous_page %}
-    {% if paginator.previous_page == 1 %}
-      <a href="/blog" class="next">Newer posts</a>
-    {% else %}
-      <a href="/page{{paginator.previous_page}}" class="next">Newer posts</a>
-    {% endif %}
-  {% else %}
-    <span class="next">Newer posts</span>
-  {% endif %}
-</div>
-{% endif %}

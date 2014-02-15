@@ -22,13 +22,13 @@ rsync:
 #             Blog Settings             #
 #---------------------------------------#
 paginate: 10                            # Posts per page on the blog index
-paginate_path: "blog/page:num"
+paginate_path: "blog/page:num"          # Path for paginated blog index pages
 pagination_dir: blog                    # Directory base for pagination URLs, e.g., /blog/page/2/
 permalink: /blog/:title                 # URL structure for blog posts
 recent_posts: 5                         # Posts in the sidebar Recent Posts section
 excerpt_link: "Continue reading &rarr;" # "Continue reading" link text at the bottom of excerpted articles
-category_dir: blog/categories           # Directory base for category URLs, e.g., /blog/categories/
-tag_dir: blog/tags                      # Directory base for tag URLs, e.g., /blog/tags/
+category_dir: blog/category             # Directory base for category URLs, e.g., /blog/categories/
+tag_dir: blog/tag                       # Directory base for tag URLs, e.g., /blog/tags/
 
 #-----------------------------#
 #       Jekyll Settings       #

@@ -15,6 +15,28 @@
   p { text-align: justify; }
 }
 
+hr.faded {
+  height: 1px;
+  line-height: 1px;
+  margin-top: 1em;
+  padding-bottom: 1em;
+  border: none;
+  background: transparent image-url('hr.png') 50% 0 no-repeat;
+}
+hr.unseen {
+  display: none;
+
+  body.category &,
+  body.tag & {
+    display: block;
+    @extend hr.faded;
+    padding-bottom: 0;
+    margin-top: 2em;
+
+    &:last-child { display: none; }
+  }
+}
+
 .post {
   .tags { margin-bottom: $baseLineHeight; }
   .next-prev-nav { text-align: center; }

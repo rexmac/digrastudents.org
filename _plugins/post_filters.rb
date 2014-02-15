@@ -171,7 +171,7 @@ module Jekyll
     # Returns the full url of the post, including the
     # configured url
     def full_url
-      self.site.config['url'] + self.url
+      (self.site.config['url'] + self.url).gsub("//#{self.site.config['domain']}", "//blog.#{self.site.config['domain']}").gsub("/blog/", "/")
     end
   end
 end

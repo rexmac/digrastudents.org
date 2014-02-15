@@ -22,7 +22,7 @@ priority: 0.7
 
   <hr />
 
-  {% if page.tags %}{% for tag in page.tags %}{% if forloop.first %}<div class="tags">Tagged in <div class="tags-list">{% endif %}<a href="/tags/{{ tag | slugize }}"><span class="label">{{ tag }}</span></a>{% if forloop.last %}</div></div>{% endif %}{% endfor %}{% endif %}
+  {% if page.tags %}{% for tag in page.tags %}{% if forloop.first %}<div class="tags">Tagged with <div class="tags-list">{% endif %}<a href="/tags/{{ tag | slugize }}"><span class="label">{{ tag }}</span></a>{% if forloop.last %}</div></div>{% endif %}{% endfor %}{% endif %}
 
   <div class="next-prev-nav">
     {% if page.previous.url %}&laquo;&nbsp;<a href="{{ page.previous.url }}" rel="previous" title="{{ page.previous.title }}">{{ page.previous.title }}</a>{% if page.next.url %} | {% endif %}{% endif %}
