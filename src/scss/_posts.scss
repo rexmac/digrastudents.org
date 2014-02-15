@@ -26,6 +26,7 @@ hr.faded {
 hr.unseen {
   display: none;
 
+  body.blog_home &,
   body.category &,
   body.tag & {
     display: block;
