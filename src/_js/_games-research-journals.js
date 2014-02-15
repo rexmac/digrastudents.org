@@ -67,7 +67,7 @@ $(function() {
 
       $.each(data.data, function(i, item) {
         aaData.push([
-          '<i class="fa fa-expand-alt"></i>',
+          '<i class="fa fa-plus-square-o"></i>',
           '<a href="' + item.homepage + '">' + item.journal + '</a>',
           item.discipline,
           '<a href="' + item.publisherHomepage + '">' + item.publisher + '</a>',
@@ -112,10 +112,10 @@ $(function() {
         }
 
         if($table.fnIsOpen($tr[0])) {
-          $tr.find('i').removeClass('fa-collapse-alt').addClass('fa-expand-alt');
+          $tr.find('i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
           $table.fnClose($tr[0]);
         } else {
-          $tr.find('i').removeClass('fa-expand-alt').addClass('fa-collapse-alt');
+          $tr.find('i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
           $table.fnOpen($tr[0], formatDetails($table, $tr[0]), 'details');
         }
       });
