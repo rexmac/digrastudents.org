@@ -90,7 +90,8 @@ module Jekyll
         months.each do |year, m|
           m.each do |month, posts|
             time = Time.new(year, month)
-            result.insert(0, %(<a href="/#{site.config['pagination_dir']}/#{time.strftime('%Y/%m')}"><strong>#{time.strftime('%B %Y')}</strong></a> (#{posts.length})<br />)) # for reverse order
+            url = ("#{site.config['pagination_url']}/#{time.strftime('%Y/%m')}").gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "/")
+            result.insert(0, %(<a href="#{url}"><strong>#{time.strftime('%B %Y')}</strong></a> (#{posts.length})<br />)) # for reverse order
           end
         end
 

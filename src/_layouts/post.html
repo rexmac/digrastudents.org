@@ -14,7 +14,7 @@ priority: 0.7
       <span class="year">{{ page.date | date: "%Y" }}</span>
     </time>
     <h1>{{ page.title }}{% if page.subtitle %}<small>{{ page.subtitle }}</small>{% endif %}</h1>
-    <h5>Posted on {{ page.date | format_date }}{% if page.category %} in <a href="/categories/{{ page.category | slugize }}">{{ page.category }}</a>{% endif %}</h5>
+    <h5>Posted on {{ page.date | format_date }}{% if page.category %}{% capture category_url %}{{site.category_dir }}/{{ page.category | slugize }}{% endcapture %} in <a href="{{ category_url | blog_url }}">{{ page.category }}</a>{% endif %}</h5>
     <hr />
   </div>
 
@@ -22,7 +22,7 @@ priority: 0.7
 
   <hr />
 
-  {% if page.tags %}{% for tag in page.tags %}{% if forloop.first %}<div class="tags">Tagged with <div class="tags-list">{% endif %}<a href="/tags/{{ tag | slugize }}"><span class="label">{{ tag }}</span></a>{% if forloop.last %}</div></div>{% endif %}{% endfor %}{% endif %}
+  {% if page.tags %}{% for tag in page.tags %}{% if forloop.first %}<div class="tags">Tagged with <div class="tags-list">{% endif %}{% capture tag_url %}{{ site.tag_dir }}/{{ tag | slugize }}{% endcapture %}<a href="{{ tag_url | blog_url }}"><span class="label">{{ tag }}</span></a>{% if forloop.last %}</div></div>{% endif %}{% endfor %}{% endif %}
 
   <div class="next-prev-nav">
     {% if page.previous.url %}&laquo;&nbsp;<a href="{{ page.previous.url }}" rel="previous" title="{{ page.previous.title }}">{{ page.previous.title }}</a>{% if page.next.url %} | {% endif %}{% endif %}
