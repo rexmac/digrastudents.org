@@ -4,6 +4,9 @@
 .align-content-center { text-align: center; }
 .align-content-left { text-align: left; }
 .align-content-right { text-align: right; }
+.auto-width { width: auto; }
+.center,
+.centered { margin-left: auto; margin-right: auto; }
 img.align-left {
   float: left;
   margin: 0 1em 1em 0;
@@ -12,8 +15,7 @@ img.align-right {
   float: right;
   margin: 0 0 1em 1em;
 }
-.auto-width { width: auto; }
-.centered { margin-left: auto; margin-right: auto; }
+img.center { display: block; }
 .chromeframe { margin-bottom: 0; @include border-radius(0!important); }
 .no-bottom { margin-bottom: 0; }
 .no-top { margin-top: 0; }
@@ -35,10 +37,13 @@ a.strikethrough { text-decoration: line-through!important; }
 .readmore-anchor {
   position: relative;
   display: inline-block;
-  top: -60px;
+  top: -($navbarHeight);
   width: 0;
   height: 0;
   float: left;
   margin: 0;
   padding: 0;
+}
+.readmore-anchor {
+  top: -($navbarHeight + 20px);
 }

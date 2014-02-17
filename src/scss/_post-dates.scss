@@ -47,3 +47,7 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .post .page-header time { display: none; }
+}

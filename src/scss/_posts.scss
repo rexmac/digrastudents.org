@@ -17,7 +17,7 @@
 
 
 /* =============================================================================
-   Horizonal rules
+   Horizontal rules
    ========================================================================== */
 hr {
   border-top-color: #ddd;
@@ -56,6 +56,11 @@ hr {
 .post {
   .tags { margin-bottom: $baseLineHeight; }
   .next-prev-nav { text-align: center; }
+}
+
+.recent-posts {
+  .post-title { font-size: $baseFontSize * 1.25 !important; }
+  .post-meta { margin-top: -10px; }
 }
 
 .pagination {
