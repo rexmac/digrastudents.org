@@ -1,12 +1,14 @@
 <div id="sidebar" class="span4"><div class="sidebar-inner">
 
-  <div class="sidebar-module social-media-icons">
+  <div class="sidebar-module social-media">
     <h3><i class="fa fa-group"></i><span>Stay Connected</span></h3>
-    <a class="ir facebook" href="http://facebook.com/{{ site.author.facebook }}" title="Join our Facebook Community">Join our Facebook Community</a>
-    <a class="ir twitter" href="http://twitter.com/{{ site.author.twitter }}" title="Follow us on Twitter">Follow us on Twitter</a>
-    <a class="ir steam" href="http://steamcommunity.com/groups/digrastudents" title="Join our Steam group">Join our Steam group</a>
-    <a class="ir mail" href="http://www.digra.org/the-association/digra-mailing-lists/" title="Subscribe to the DiGRA mailing list">Subscribe to the DiGRA mailing list</a>
-    <a class="ir rss" href="{{ site.url }}/feed" title="nom nom?">RSS Feed</a>
+    <ul class="social-media-links">
+      <li><a class="ir facebook" href="http://facebook.com/{{ site.author.facebook }}" title="Join our Facebook Community"><span class="visually-hidden">Join our Facebook Community</span></a></li>
+      <li><a class="ir twitter" href="http://twitter.com/{{ site.author.twitter }}" title="Follow us on Twitter"><span class="visually-hidden">Follow us on Twitter</span></a></li>
+      <li><a class="ir steam" href="http://steamcommunity.com/groups/{{ site.author.steam }}" title="Join our Steam group"><span class="visually-hidden">Join our Steam group</span></a></li>
+      <li><a class="ir mail" href="http://www.digra.org/the-association/digra-mailing-lists/" title="Subscribe to the DiGRA mailing list"><span class="visually-hidden">Subscribe to the DiGRA mailing list</span></a></li>
+      <li><a class="ir rss" href="{{ site.url }}/feed" title="nom nom? Subscribe to our blog updates"><span class="visually-hidden">RSS Feed</span></a></li>
+    </ul>
   </div>
 
   <div class="sidebar-module external-links">
