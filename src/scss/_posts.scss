@@ -15,26 +15,41 @@
   p { text-align: justify; }
 }
 
-hr.faded {
-  height: 1px;
-  line-height: 1px;
-  margin-top: 1em;
-  padding-bottom: 1em;
-  border: none;
-  background: transparent image-url('hr.png') 50% 0 no-repeat;
-}
-hr.unseen {
-  display: none;
 
-  body.blog_home &,
-  body.category &,
-  body.tag & {
-    display: block;
-    @extend hr.faded;
-    padding-bottom: 0;
-    margin-top: 2em;
+/* =============================================================================
+   Horizonal rules
+   ========================================================================== */
+hr {
+  border-top-color: #ddd;
+  border-bottom-color: $grayLighter;
+  .lightsoff & {
+    border-top-color: $grayDarker;
+    border-bottom-color: $grayDark;
+  }
 
-    &:last-child { display: none; }
+  &.faded {
+    height: 1px;
+    line-height: 1px;
+    margin-top: 1em;
+    padding-bottom: 1em;
+    border: none;
+    background: transparent image-url('hr.png') 50% 0 no-repeat;
+  }
+
+  &.unseen {
+    display: none;
+
+    body.blog_home &,
+    body.category &,
+    body.home &,
+    body.tag & {
+      display: block;
+      @extend hr.faded;
+      padding-bottom: 0;
+      margin-top: 2em;
+
+      &:last-child { display: none; }
+    }
   }
 }
 
