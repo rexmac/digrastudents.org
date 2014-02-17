@@ -1,6 +1,6 @@
 $(function() {
   // Open external links in new tab/window
-   $('a').not('[href*="' + document.domain + '"], [href^="/"], [href^="javascript:;"], [href^="#"]').each(function() {
+   $('a').not('[href*="' + document.domain.replace(/^blog\./, '') + '"], [href^="/"], [href^="javascript:;"], [href^="#"]').each(function() {
      this.target = '_blank';
    });
 
