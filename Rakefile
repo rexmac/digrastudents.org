@@ -3,9 +3,13 @@ require 'closure-compiler'
 require 'colorize'
 require 'digest'
 require 'fileutils'
+require 'net/http'
+require 'uri'
 
 ENV['JEKYLL_ENV'] = ENV['JEKYLL_ENV'] ? ENV['JEKYLL_ENV'] : "production"
 CONFIG = YAML.load_file("_config.yml")
+DEV_CONFIG = YAML.load_file("_config.dev.yml")
+SECRETS = YAML.load_file("_secrets.yml")
 
 dest_dir   = CONFIG['destination'] || "_site"
 src_dir = CONFIG['source'] || "."
@@ -240,6 +244,61 @@ task :js do
   else
     message "done".colorize(:green) + '.'
   end
+end
+
+desc "Run perceptual diff tool"
+task :pdiff do
+  message "Running dpxdt...", false
+  dir = '/home/rex/git/dpxdt/'
+  Dir.chdir dir do
+    # site_diff
+    pdiff_options = [
+      '--upload_build_id=1',
+      '--ignore_prefixes=mailto',
+      "--release_server_prefix=#{SECRETS['dpxdt']['api_url']}",
+      "--release_client_id=#{SECRETS['dpxdt']['client_id']}",
+      "--release_client_secret=#{SECRETS['dpxdt']['client_secret']}",
+      '--crawl_depth=-1',
+      '--inject_css=".tag-cloud-tags{text-indent:-32000em}.twitter-timeline{display: none}.games-research-timestamp{display:none}"'
+    ]
+    out = `. ~/git/dpxdt/common.sh; ~/git/dpxdt/dpxdt/tools/site_diff.py #{pdiff_options.join(' ')} #{DEV_CONFIG['url']} 2>&1`
+    # url_pair_diff
+    #out = `. ~/git/dpxdt/common.sh; ~/git/dpxdt/dpxdt/tools/url_pair_diff.py #{pdiff_options.join(' ')} #{CONFIG['url']} #{DEV_CONFIG['url']} 2>&1`
+    print "\n" + out.gsub(/^/, "    ")
+  end
+
+  # http://www.rubyinside.com/nethttp-cheat-sheet-2940.html
+  #uri = URI.parse("#{SECRETS['dpxdt']['api_url']}/create_release");
+  #http = Net::HTTP.new(uri.host, uri.port)
+  #request = Net::HTTP::Get.new(uri.request_uri)
+  #request.basic_auth("#{SECRETS['dpxdt']['client_id']}", "#{SECRETS['dpxdt']['client_secret']}")
+  #request.set_form_data({
+  #  'build_id'       => '1',
+  #  'release_name'   => Time.now.strftime('%F %T.%N')
+  #})
+  #response = http.request(request)
+  #puts response.code
+  #puts response.body
+
+
+  #uri = URI.parse("#{SECRETS['dpxdt']['api_url']}/request_run");
+  #http = Net::HTTP.new(uri.host, uri.port)
+  #request = Net::HTTP::Get.new(uri.request_uri)
+  #request.basic_auth("#{SECRETS['dpxdt']['client_id']}", "#{SECRETS['dpxdt']['client_secret']}")
+  #request.set_form_data({
+  #  'build_id'       => '1',
+  #  'release_name'   => '',
+  #  'release_number' => '',
+  #  'url'            => "#{DEV_CONFIG['url']}",
+  #  'config'         => '{}',
+  #  #'ref_url'        => '',
+  #  #'ref_config'     => '{}'
+  #})
+  #response = http.request(request)
+  #puts response.code
+  #puts response.body
+
+  message "done".colorize(:green) + '.'
 end
 
 desc "Deploy website to server"
