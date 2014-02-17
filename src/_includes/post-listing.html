@@ -4,8 +4,8 @@
     <h5 class="no-top">
       Posted on {{ post.date | format_date }}
       {% unless no_category %}
-        {% if post.category %}
-          in <a href="/{{ site.category_dir }}/{{ post.category | slugize }}">{{ post.category }}</a>
+        {% if post.category %}{% capture category_url %}{{ site.category_dir }}/{{ post.category | slugize }}{% endcapture %}
+          in <a href="{{ category_url | blog_url }}">{{ post.category }}</a>
         {% endif %}
       {% endunless %}
     </h5>
@@ -13,7 +13,7 @@
     {{ post.content | postmorefilter: post.full_url, "Continue reading »", 75 }}
 
     {% unless no_tags %}
-      {% if post.tags %}{% for tag in post.tags %}{% if forloop.first %}<div class="tags">Tagged with <div class="tags-list">{% endif %}<a href="/{{ site.tag_dir }}/{{ tag | slugize }}"><span class="label">{{ tag }}</span></a>{% if forloop.last %}</div></div>{% endif %}{% endfor %}{% endif %}
+      {% if post.tags %}{% for tag in post.tags %}{% if forloop.first %}<div class="tags">Tagged with <div class="tags-list">{% endif %}{% capture tag_url %}{{ site.tag_dir }}/{{ tag | slugize }}{% endcapture %}<a href="{{ tag_url | blog_url }}"><span class="label">{{ tag }}</span></a>{% if forloop.last %}</div></div>{% endif %}{% endfor %}{% endif %}
     {% endunless %}
   </div>
 

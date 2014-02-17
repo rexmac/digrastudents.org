@@ -42,9 +42,10 @@ module Jekyll
         tags.inject("") do |html, tag|
           length = tag[:posts].length
 
+          url = ("#{site.config['url']}/#{site.config['tag_dir']}/#{tag[:slug]}/").gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "/")
           html << %(
             <span style="font-size: #{weights[tag[:title]].to_i}%">
-              <a href="/#{site.config['tag_dir']}/#{tag[:slug]}/" title="#{length} post#{"s" if length != 1}">#{tag[:title]}</a>
+              <a href="#{url}" title="#{length} post#{"s" if length != 1}">#{tag[:title]}</a>
             </span>&nbsp;
           )
 

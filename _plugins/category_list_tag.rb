@@ -12,7 +12,8 @@ module Jekyll
       categories = site.categories
 
       categories.keys.each do |category|
-        result << %(<a href="/#{site.config['category_dir']}/#{category.slugize}"><strong>#{category}</strong></a> (#{categories[category].length})<br />)
+        url = ("#{site.config['url']}/#{site.config['category_dir']}/#{category.slugize}").gsub("//#{site.config['domain']}", "//blog.#{site.config['domain']}").gsub("/blog/", "/")
+        result << %(<a href="#{url}"><strong>#{category}</strong></a> (#{categories[category].length})<br />)
       end
 
       result
