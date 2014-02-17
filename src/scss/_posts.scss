@@ -118,6 +118,7 @@ hr {
 
 .hero-unit {
   background-color: #ddd;
+  padding: 0.5em 2em;
   .lightsoff & { background-color: $grayDark; }
   @media (max-width: 480px) {
     padding: $baseLineHeight;

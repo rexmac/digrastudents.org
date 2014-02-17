@@ -1,6 +1,7 @@
 @import "bootstrap/bootstrap";
 @import "bootstrap/responsive";
 @import "compass";
+@import "companimation";
 @import "font-awesome/font-awesome";
 @import "sprites";
 
@@ -9,6 +10,8 @@ $noise-bg: image-url('noise.png') 0 0 !default;
 $icons-sprite: image-url($iconSpritePath) !default;
 $icons-white-sprite: image-url($iconWhiteSpritePath) !default;
 $pattern-bg: image-url('DIGRA_PatternBG.jpg') 0 0 !default;
+$lightsoffLinkColor: #08f;
+$lightsoffLinkColorHover: #5bf;
 
 @mixin selection($bg, $color: inherit, $text-shadow: none){
   * {
@@ -18,9 +21,8 @@ $pattern-bg: image-url('DIGRA_PatternBG.jpg') 0 0 !default;
   }
 }
 
-$lightsoffLinkColor: #08f;
-$lightsoffLinkColorHover: #5bf;
-
+@import "solarized";
+@import "syntax";
 @import "helpers";
 
 /*
@@ -48,6 +50,12 @@ body {
   }
 }
 
+a {
+  .lightsoff & {
+    @include link-colors($lightsoffLinkColor, $lightsoffLinkColorHover, $lightsoffLinkColorHover, $lightsoffLinkColor, $lightsoffLinkColorHover);
+  }
+}
+
 #body-bg {
   background: #000 $pattern-bg;
   position: fixed;
@@ -59,25 +67,36 @@ body {
   @include opacity(0.3);
 }
 
-a {
-  .lightsoff & {
-    @include link-colors($lightsoffLinkColor, $lightsoffLinkColorHover, $lightsoffLinkColorHover, $lightsoffLinkColor, $lightsoffLinkColorHover);
-  }
+
+@import "accordions";
+@import "alerts";
+@import "buttons";
+@import "dictionary";
+@import "forms";
+@import "foundation/components/keystrokes";
+@import "nav";
+@import "footer";
+@import "sidebar";
+@import "posts";
+@import "post-dates";
+@import "tagcloud";
+@import "profile-flip";
+@import "socialmedia-icons";
+@import "tooltips";
+@import "print";
+
+
+/* =============================================================================
+   Thumbnails
+   ========================================================================== */
+img.thumbnail {
+  .lightsoff & { border-color: $gray; }
 }
 
-p { text-align: justify; }
 
-hr {
-  border-top-color: #ddd;
-  border-bottom-color: $grayLighter;
-  .lightsoff & {
-    border-top-color: $grayDarker;
-    border-bottom-color: $grayDark;
-  }
-}
-
-.hero-unit { padding: 0.5em 2em; }
-
+/* =============================================================================
+   Miscellaneous
+   ========================================================================== */
 .home-links h2 {
   margin-left: 0.3em;
 }
@@ -109,30 +128,6 @@ hr {
   margin-top: 1em;
   @include box-shadow(0 0 8px 1px rgba(0, 0, 0, 0.05));
 }
-
-@import "foundation/components/keystrokes";
-@import "posts";
-@import "accordions";
-@import "alerts";
-@import "buttons";
-@import "dictionary";
-@import "forms";
-@import "nav";
-@import "footer";
-
-/* =============================================================================
-   Thumbnails
-   ========================================================================== */
-img.thumbnail {
-  .lightsoff & { border-color: $gray; }
-}
-
-@import "tooltips";
-@import "post-dates";
-@import "sidebar";
-@import "tagcloud";
-@import "socialmedia-icons";
-@import "profile-flip";
 
 
 /* =============================================================================
