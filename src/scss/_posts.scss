@@ -79,7 +79,7 @@ hr {
     float: right;
 
     &:after {
-      content: '\x00BB';
+      content: '\00BB';
       padding-left: 0.5em;
     }
   }
@@ -87,7 +87,7 @@ hr {
     float: left;
 
     &:before {
-      content: '\x00AB';
+      content: '\00AB';
       padding-right: 0.5em;
     }
   }
