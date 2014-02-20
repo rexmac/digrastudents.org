@@ -10,7 +10,7 @@ class Digra {
   #const URL = 'http://www.digra.org:8080/Plone/shared/game-research-map/';
   const ACADEMICS_ON_TWITTER_URL = 'https://docs.google.com/spreadsheet/pub?key=0Am04dkUpi5bOdHFiWDU2MmNuTjFTRUowazNIY2FGX3c&single=true&gid=0&output=csv';
   #const ARTICLES_URL = 'https://docs.google.com/spreadsheet/pub?key=0AqjgW5ZOmo0kdE8xLUI1RHVyYnQtRmhkZW5HWDh0MXc&single=true&gid=0&output=csv';
-  const ARTICLES_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdFZOZ0Q0elUweVprTWpjQ1o0dTNDalE&single=true&gid=0&output=csv'
+  const ARTICLES_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdFZOZ0Q0elUweVprTWpjQ1o0dTNDalE&single=true&gid=0&output=csv';
   const JOURNALS_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdDkzdkZkMm9BUkNkV291TlZwOWFBT0E&single=true&gid=0&output=csv';
   const POSITIONS_URL = 'https://docs.google.com/spreadsheet/pub?key=0Avnyt6dhhUZgdHp3WVhLZTRNb1ZqOUZGZDZ6N0d0akE&single=true&gid=0&output=csv';
   #const URL = 'http://www.digarec.org/gamesresearchmap/doku.php?id=start:gamesresearchmap';
