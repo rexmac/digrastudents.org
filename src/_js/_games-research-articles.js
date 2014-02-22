@@ -36,13 +36,15 @@ $(function() {
           item.year,
           item.authors,
           '<a href="' + item.link + '">' + item.title + '</a>',
-          item.publisher
+          item.publisher,
+          '<div class="altmetric-embed-placeholder" data-badge-type="1" data-badge-popover="bottom" data-doi="' + item.doi + '" data-pmid="' + item.pubmed + '"></div>'
         ]);
       });
 
       $.each(data.headers, function(i, item) {
-        $headers.append('<th>' + item + '</th>')
+        $headers.append('<th>' + item + '</th>');
       });
+      $headers.append('<th>Altmetrics</th>');
 
       $table.children('thead').empty().append($headers);
       $table.children('tbody').empty();
@@ -69,6 +71,20 @@ $(function() {
         'bExpandableGrouping2': true,
         'fnOnGrouped': function() {
           $table.find('.subgroup').trigger('click');
+        },
+        'fnOnGroupExpanded': function(a, b) {
+          var init = false;
+          if(a.level === 1) { // this is a sub-group expansion
+            $('tr[data-group="' + a.dataGroup + '"]').find('.altmetric-embed-placeholder').each(function() {
+              if($(this).data('doi') || $(this).data('pmid')) {
+                init = true;
+                $(this).removeClass('altmetric-embed-placeholder').addClass('altmetric-embed');
+              }
+            });
+            if(init) {
+              _altmetric_embed_init();
+            }
+          }
         }
       }).show();
 

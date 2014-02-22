@@ -48,7 +48,6 @@
     $.fn.rowGrouping = function (options) {
 
         function _fnOnGrouped() {
-
         }
 
         function _fnOnGroupCreated(oGroup, sGroup, iLevel) {
@@ -102,6 +101,7 @@
             bExpandableGrouping2: false,
 
             fnOnGrouped: _fnOnGrouped,
+            fnOnGroupExpanded: function(){},
 
             fnOnGroupCreated: _fnOnGroupCreated,
             fnOnGroupCompleted: _fnOnGroupCompleted,
@@ -276,27 +276,28 @@
 
             function fnExpandGroup(sGroup) {
                 ///<summary>Expand group if expanadable grouping is used</summary>
-          aoGroups[sGroup].state = "expanded";
-        //$("td[data-group^='" + sGroup + "']").not('.subgroup').removeClass("collapsed-group").addClass("expanded-group");
-        $("td[data-group='" + sGroup + "']").removeClass("collapsed-group").addClass("expanded-group");
+                aoGroups[sGroup].state = "expanded";
+                //$("td[data-group^='" + sGroup + "']").not('.subgroup').removeClass("collapsed-group").addClass("expanded-group");
+                $("td[data-group='" + sGroup + "']").removeClass("collapsed-group").addClass("expanded-group");
 
-        if(properties.bUseFilteringForGrouping)
-        {
-          oTable.fnDraw();
-          return;//Because rows are expanded with _rowGroupingRowFilter function
-        }
+                if(properties.bUseFilteringForGrouping)
+                {
+                    oTable.fnDraw();
+                    return;//Because rows are expanded with _rowGroupingRowFilter function
+                }
 
-        if (jQuery.inArray(sGroup, asExpandedGroups)==-1)
+                if (jQuery.inArray(sGroup, asExpandedGroups)==-1)
                     asExpandedGroups.push(sGroup);
 
                 if (properties.oHideEffect != null)
                     $(".group-item-" + sGroup, oTable)
-          [properties.oShowEffect.method](properties.oShowEffect.duration,
-                  properties.oShowEffect.easing,
-                  function () { });
+                        [properties.oShowEffect.method](properties.oShowEffect.duration,
+                        properties.oShowEffect.easing,
+                        function () { });
                 else
                     $(".group-item-" + sGroup, oTable).show();
 
+                properties.fnOnGroupExpanded(aoGroups[sGroup], sGroup);
 
             } //end of function fnExpandGroup
 
