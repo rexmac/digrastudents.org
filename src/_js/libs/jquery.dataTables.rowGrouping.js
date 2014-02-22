@@ -277,9 +277,8 @@
             function fnExpandGroup(sGroup) {
                 ///<summary>Expand group if expanadable grouping is used</summary>
           aoGroups[sGroup].state = "expanded";
-
-        $("td[data-group^='" + sGroup + "']").not('.subgroup').removeClass("collapsed-group");
-        $("td[data-group^='" + sGroup + "']").not('.subgroup').addClass("expanded-group");
+        //$("td[data-group^='" + sGroup + "']").not('.subgroup').removeClass("collapsed-group").addClass("expanded-group");
+        $("td[data-group='" + sGroup + "']").removeClass("collapsed-group").addClass("expanded-group");
 
         if(properties.bUseFilteringForGrouping)
         {
