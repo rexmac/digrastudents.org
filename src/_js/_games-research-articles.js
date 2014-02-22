@@ -52,6 +52,8 @@ $(function() {
         'aaData': aaData,
         'aaSorting': [],
         'aoColumnDefs': [
+          {'bSortable': false, 'aTargets': [7]},
+          {'bSearchable': false, 'aTargets': [7]}
         ],
         'iDisplayLength': 25,
         'oLanguage': {
@@ -69,7 +71,7 @@ $(function() {
         'fnGroupLabelFormat2': function(label) { return '' + label + ' (sub-category)'; },
         'bExpandableGrouping': true,
         'bExpandableGrouping2': true,
-        'fnOnGrouped': function() {
+        'fnOnInit': function() {
           $table.find('.subgroup').trigger('click');
         },
         'fnOnGroupExpanded': function(a, b) {
