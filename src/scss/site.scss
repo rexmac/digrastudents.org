@@ -123,6 +123,10 @@ img.thumbnail {
 
   h3 {
     margin-top: 1em;
+
+    body#page-about-us & {
+      clear: both;
+    }
   }
 }
 

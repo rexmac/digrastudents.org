@@ -5,15 +5,29 @@ title: About Us
 
 This is the website for the student members of DiGRA, which is the largest non-profit international association of professionals, academics, developers, and other individuals interested in the evolving field of digital gaming and game related studies.
 
-The current student representatives of DiGRA, [Rachel Kowert](#rkowert) and [Ashley O'Toole-Brown](#abrown) developed this website with the idea of fostering an international community of students and early career researchers studying digital games. It is hoped that this community can be a valuable resource for developments in the field, professional  networking, and disseminating research (as well as finding conference buddies)!
+The former student representatives of DiGRA, [Rachel Kowert](#rkowert) and [Ashley Brown](#abrown) developed this website with the idea of fostering an international community of students and early career researchers studying digital games. It is hoped that this community can be a valuable resource for developments in the field, professional  networking, and disseminating research (as well as finding conference buddies)!
 
 You do not need to be an official member of DiGRA to participate, but membership is encouraged. DiGRA membership offers many benefits and helps your representatives  serve you better. To join, or for more information, visit the [DiGRA homepage](http://www.digra.org/join).
 
 ## Current Representatives
 
-<a id="rkowert" class="page-anchor">&nbsp;</a>
+<h3><a id="wrobinsons" class="page-anchor">&nbsp;</a>William Robinson</h3>
 
-### Rachel Kowert
+<div class="profile-image">
+  <img src="/img/wrobinson.jpg" alt="Photo of William Robinson" width="200" height="200" />
+</div>
+William graduated from [McGill University](http://www.mcgill.ca/) in 2010 with a B.A. in Honours English. He stayed in Montreal for a M.A. in the INDI program at [Concordia University](http://www.concordia.ca/), working in the [Center for Technoculure, Art and Games](http://www.tag.hexagram.ca/) (TAG). There, under the supervision of Dr. Bart Simon, Dr. Jason Camlot and Prof. Lynn Hughes, he studied the aesthetics and sociology of videogames with a focus on game studies. After the hiring of Dr. Mia Consalvo and Dr. Darren Wershler, William stayed at Concordia to continue at the doctoral level in the Humanities program in 2012. He is currently exploring methods in research creation, procedural rhetoric and the possibilities of archival videogames.
+
+<h3><a id="jweber" class="page-anchor">&nbsp;</a>Jessika Weber</h3>
+
+<div class="profile-image">
+  <img src="/img/jweber.jpg" alt="Photo of Jessika Weber" width="200" height="200" />
+</div>
+Jessika is a PhD researcher in location-based game experience and mobile game user research for travel and tourism. She holds a Diploma in economics from the [University of Applied Sciences Schmalkalden](http://fh-schmalkalden.de), Germany and a Masters from [University of Applied Sciences Salzburg](http://www.fh-salzburg.ac.at/en/), Austria. With a background in business, innovations and management in tourism, she specialised on mobile tourism in her academic and professional life.  Her research interests range from the application of new mobile technologies in outdoor tourism to creating future scenarios of NFC application for mobile destination cards. Currently, she is working on her dissertation about location-based mobile augmented reality games in urban destinations in the [Faculty of Management at Bournemouth University](https://www1.bournemouth.ac.uk), UK which is supervised by Prof Janet E. Dickinson, Ass. Prof Feng Tian and Ass. Prof António Coelho from [FEUP, Porto University](http://sigarra.up.pt/feup/en/WEB_PAGE.INICIAL).
+
+## Past Representatives
+
+<h3><a id="rkowert" class="page-anchor">&nbsp;</a>Rachel Kowert</h3>
 
 <div class="profile-image-flip"><div>
   <div class="front face"><img src="/img/rkowert.jpg" alt="Photo of Rachel Kowert" width="200" height="200" /></div>
@@ -27,13 +41,11 @@ Rachel is currently working with [Prof. Dr. Thorsten Quandt](http://www.uni-muen
 
 For more information on Rachel and her work, visit [her website](http://rkowert.com/).
 
-<a id="abrown" class="page-anchor">&nbsp;</a>
-
-### Ashley O'Toole Brown
+<h3><a id="abrown" class="page-anchor">&nbsp;</a>Ashley Brown</h3>
 
 <div class="profile-image-flip"><div>
-  <div class="front face"><img src="/img/abrown.jpg" alt="Photo of Ashley O'Toole-Brown" width="200" height="200" /></div>
-  <div class="back face"><img src="/img/abrown-fantasy.jpg" alt="Fantasy drawing of Ashley O'Toole-Brown as a warrior" width="200" height="200" /></div>
+  <div class="front face"><img src="/img/abrown.jpg" alt="Photo of Ashley Brown" width="200" height="200" /></div>
+  <div class="back face"><img src="/img/abrown-fantasy.jpg" alt="Fantasy drawing of Ashley Brown as a warrior" width="200" height="200" /></div>
 </div></div>
 Ashley graduated Summa Cum Laude from [Arizona State University](http://www.asu.edu/) in May 2008 with a BS in Sociology, minoring in social behavioral science. Her undergraduate work focused on gender and body modifications (such as tattoos and piercings).
 
@@ -45,3 +57,4 @@ Although still based in the UK, Ashley currently works as a research assistant f
 
 In her spare time, Ashley enjoys playing in fantasy worlds, reading about fantasy worlds, and pretending to be better than she is at sword fighting.
 
+For more information on Ashley and her work, visit [her website](http://amlbrown.com/).
